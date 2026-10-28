@@ -1,0 +1,34 @@
+// Textos editoriales editables. Los datos, assets y URLs están en content.ts.
+export const copy = {
+  underConstruction1: "Sitio en construcción",
+  underConstruction2:
+    "El espacio oficial de Lesslie Apodaca está tomando forma.",
+  underConstruction3:
+    "Actriz, escritora y creadora de historias. Muy pronto podrás conocer su trayectoria artística y descubrir su universo literario.",
+  hero1: " Actriz & escritora mexicana",
+  hero2: "Entre la escena y la página",
+  hero3: "Lesslie Apodaca",
+  hero4: "01 / Una mirada propia",
+  purchase1: "El siguiente capítulo es tuyo",
+  purchase2: "Enlace de compra pendiente de confirmar.",
+  purchase3: "Sigue las novedades en Facebook ↗",
+  universe1: "04 / El universo de mi novela",
+  universe2: "Los fragmentos de la novela se incorporarán con autorización.",
+  novel1: "Un universo por descubrir",
+  novel2: "La primera novela de Lesslie Apodaca",
+  novel3: "01 / Mi primera novela",
+  footer1: "07 / Contacto",
+  footer2: "Prensa y colaboraciones",
+  footer3: "Contacto profesional por incorporar.",
+  footer4: "© Lesslie Apodaca. Todos los derechos reservados.",
+  story1: "02 / Mi historia",
+  story2:
+    "Actriz y escritora. Dos maneras de explorar lo que nos hace humanos.",
+  story3: "La escena. La palabra. La emoción.",
+  press1: "06 / En conversación",
+  press2: "Un espacio para seguir la conversación.",
+  press3: "Las entrevistas, noticias y menciones verificadas se reunirán aquí.",
+  career1: "03 / Mi trayectoria",
+  career2: "Cada personaje, una nueva mirada.",
+  career3: "Producción audiovisual",
+} as const;
