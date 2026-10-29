@@ -25,7 +25,7 @@
 .creditLine { position: absolute; bottom: -1px; left: 0; right: 0; height: 1px; background: var(--color-gold); transform-origin: left; }
 .direction { display: flex; justify-content: space-between; font-size: 8px; text-transform: uppercase; letter-spacing: .19em; color: var(--color-champagne); padding-top: 24px; }
 .direction span { font-size: 19px; line-height: 1; }
-.paper { position: relative; min-height: 620px; display: flex; align-items: center; background: linear-gradient(105deg, #eadfce, var(--color-ivory) 22%, #fbf7ef 75%, #efe5d6); color: var(--color-brown); isolation: isolate; overflow: clip; }
+.bridgeSurface { position: relative; min-height: 620px; display: flex; align-items: center; background: var(--color-ivory); color: var(--color-brown); isolation: isolate; overflow: clip; }
 .bridgeCopy { position: relative; padding-block: 90px; }
 .bridgeCopy .eyebrow { color: var(--color-bougainvillea); }
 .bridgeCopy h2 { font-size: clamp(64px, 7.5vw, 112px); margin-top: 24px; line-height: .95; }
@@ -35,7 +35,12 @@
 .journey[data-enhanced="desktop"] .stage { height: calc(100svh - 112px); min-height: 588px; }
 .journey[data-enhanced="desktop"] .filmBody { height: 100%; display: flex; flex-direction: column; justify-content: center; padding-block: 28px 24px; }
 .journey[data-enhanced="desktop"] .heading { margin-bottom: 24px; }
-.journey[data-enhanced="desktop"] .paper { position: absolute; inset: 0; z-index: 6; min-height: 0; pointer-events: none; }
+.journey[data-enhanced="desktop"] .bridgeSurface { position: absolute; inset: 0; z-index: 6; min-height: 0; opacity: 0; visibility: hidden; pointer-events: none; }
+.journey[data-enhanced="desktop"] .bridgeCopy { opacity: 0; visibility: hidden; }
+.curtain { display: none; }
+.journey[data-enhanced="desktop"] .curtain { display: block; position: absolute; top: 0; bottom: 0; width: 50%; z-index: 7; background: var(--color-brown); opacity: 0; visibility: hidden; pointer-events: none; }
+.curtainLeft { left: 0; }
+.curtainRight { right: 0; }
 @media (max-width: 1000px), (max-height: 699px) {
   .filmBody { padding-block: 65px 35px; }
   .heading { align-items: flex-start; }
@@ -44,7 +49,7 @@
   .credit { padding-block: 24px; }
   .credit h3 { font-size: 30px; }
   .window { height: 390px; }
-  .paper { min-height: 520px; }
+  .bridgeSurface { min-height: 520px; }
 }
 @media (max-width: 650px) {
   .heading { display: block; }
@@ -53,7 +58,7 @@
   .window { height: 320px; }
   .credit { padding-block: 26px; }
   .credit h3 { font-size: 34px; }
-  .paper { min-height: 480px; }
+  .bridgeSurface { min-height: 480px; }
   .bridgeCopy { padding-block: 80px; }
   .bridgeCopy h2 { font-size: clamp(55px, 12vw, 78px); }
 }
@@ -90,7 +95,7 @@
 .bridgeCopy { width: min(1240px, calc(100% - 112px)); }
 .bridgeCopy h2 { max-width: 780px; }
 @media (max-width: 1000px), (max-height: 699px) {
-  .paper { background: linear-gradient(180deg, var(--color-brown), var(--color-ivory) 96px); }
+  .bridgeSurface { background: linear-gradient(180deg, var(--color-brown), var(--color-ivory) 96px); }
   .bridgeCopy { width: min(1240px, calc(100% - 72px)); padding-block: 115px 80px; }
   /* A static title is more legible under fast touch scrolling than a scrubbed reveal. */
   .journey[data-enhanced="natural"] .creditLine { transform: scaleX(1); }
@@ -98,5 +103,5 @@
 @media (max-width: 650px) {
   .bridgeCopy { width: calc(100% - 44px); padding-block: 115px 80px; }
   .bridgeCopy h2 { font-size: clamp(52px, 12vw, 72px); }
-  .paper { min-height: 0; }
+  .bridgeSurface { min-height: 0; }
 }

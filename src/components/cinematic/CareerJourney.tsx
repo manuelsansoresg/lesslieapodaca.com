@@ -42,19 +42,11 @@ export function CareerJourney() {
         gsap.set(frames.slice(1), { clipPath: "inset(100% 0% 0% 0%)" });
         gsap.set(credits.slice(1), { color: "#e9d2af" });
         gsap.set(lines, { scaleX: 0, transformOrigin: "left" });
-        const paperMask = (opening: boolean) => {
-          const stage = select("[data-stage]")[0].getBoundingClientRect();
-          const frame = select("[data-window]")[0].getBoundingClientRect();
-          const top = (frame.top - stage.top) / stage.height * 100;
-          const right = (stage.right - frame.right) / stage.width * 100;
-          const bottom = (stage.bottom - frame.bottom) / stage.height * 100;
-          const edge = (frame.right - stage.left) / stage.width * 100;
-          const left = (frame.left - stage.left) / stage.width * 100;
-          const tilt = 12 / stage.width * 100;
-          return `polygon(${opening ? edge : left + tilt}% ${top}%, ${100 - right}% ${top}%, ${100 - right}% ${100 - bottom}%, ${opening ? edge : left - tilt}% ${100 - bottom}%)`;
-        };
-        gsap.set("[data-paper]", { clipPath: () => paperMask(true) });
-        gsap.set("[data-bridge-copy]", { autoAlpha: 0, y: 20 });
+        const masks = select("[data-curtain]");
+        const surface = select("[data-bridge-surface]");
+        gsap.set(masks, { autoAlpha: 0, xPercent: 0 });
+        gsap.set(surface, { autoAlpha: 0 });
+        gsap.set("[data-bridge-copy]", { autoAlpha: 0, y: 12 });
         const sequence = gsap.timeline({
           defaults: { ease: "none" },
           scrollTrigger: {
@@ -74,13 +66,17 @@ export function CareerJourney() {
             .to(lines[index], { scaleX: 1, duration: 0.65 }, at)
             .to("[data-reel]", { yPercent: -index * 12, duration: 0.6 }, at);
         });
-        // A zero-width edge grows across the final frame, then becomes the
-        // editorial surface. The opaque plane stays inside its moving mask.
+        // Close the scene into darkness, then open two full-height curtains.
+        // Every state belongs to this scrubbed sequence, including reverse scroll.
         sequence.addLabel("page", 2.65)
-          .to("[data-paper]", { clipPath: () => paperMask(false), duration: 0.95, ease: "power2.inOut" }, "page")
-          .to("[data-paper]", { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 1.45, ease: "power2.inOut" }, "page+=0.95")
-          .to("[data-bridge-copy]", { autoAlpha: 1, y: 0, duration: 0.58, ease: "power2.out" }, "page+=0.9")
-          .to({}, { duration: 0.38 }, "page+=2.4");
+          .to(masks, { autoAlpha: 1, duration: 0.4 }, "page")
+          .set(surface, { autoAlpha: 1 }, "page+=0.4")
+          .addLabel("opening", "page+=0.5")
+          .to("[data-curtain-left]", { xPercent: -100, duration: 1.5, ease: "power2.inOut" }, "opening")
+          .to("[data-curtain-right]", { xPercent: 100, duration: 1.5, ease: "power2.inOut" }, "opening")
+          .to("[data-bridge-copy]", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, "opening+=1.2")
+          .addLabel("reading")
+          .to({}, { duration: 0.65 });
       } else {
         // Native mobile/tablet scrolling: text remains static and scene changes
         // are discrete instead of tracking every pixel of a fast touch gesture.
@@ -135,7 +131,7 @@ export function CareerJourney() {
           </div>
           <div className={styles.composition}>
             <figure className={styles.visual}>
-              <div data-window className={styles.window}>
+              <div className={styles.window}>
                 {compositions.map((src, index) => (
                   <div key={src} data-frame className={styles.frame} aria-hidden="true">
                     <Image src={src} alt="" fill sizes="(min-width: 1001px) 44vw, 90vw" />
@@ -163,7 +159,7 @@ export function CareerJourney() {
           </div>
           <p className={styles.direction} aria-hidden="true">Continúa el recorrido <span>↓</span></p>
         </div>
-        <div data-paper className={styles.paper}>
+        <div data-bridge-surface className={styles.bridgeSurface}>
           <div data-bridge-copy className={`section-wrap ${styles.bridgeCopy}`}>
             <p className="eyebrow">Actriz · Escritora</p>
             <h2>De la escena<br /><em>a la página.</em></h2>
@@ -171,6 +167,8 @@ export function CareerJourney() {
             <p className={styles.bookTitle}>{site.book.title}</p>
           </div>
         </div>
+        <div data-curtain data-curtain-left className={`${styles.curtain} ${styles.curtainLeft}`} aria-hidden="true" />
+        <div data-curtain data-curtain-right className={`${styles.curtain} ${styles.curtainRight}`} aria-hidden="true" />
       </div>
     </section>
   );
