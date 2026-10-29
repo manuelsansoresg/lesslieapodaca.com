@@ -66,3 +66,12 @@ Los cambios quedaron subidos a `main`. No se pudo descargar el repositorio desde
 - Tablet/móvil: las hojas se presentan en flujo natural debajo del título, con transformaciones CSS estáticas y sin scrub ni nuevos ScrollTriggers; se conserva el comportamiento de fotogramas discretos existente.
 - Se respeta `prefers-reduced-motion`: no se crea la animación de GSAP y la composición permanece visible en estado estático.
 - **Validación pendiente:** se intentó `git clone` para ejecutar `npm ci`, `npm run typecheck` y `npm run build`, pero el entorno falló con `Could not resolve host: github.com`. No hubo ejecución de build ni pruebas de Safari iPhone, Chrome Android o scroll reversible en navegador real en esta sesión. Comprobar en local antes de publicar.
+
+
+## Ajuste fino: apertura de fotograma a manuscrito (29 de octubre de 2026)
+
+- **Causa del rectángulo:** `[data-paper]` pasaba a opacidad 1 en 0.22 unidades de timeline mientras `clip-path` seguía abriéndose; la superficie marfil podía destacar como bloque que se superponía al fotograma. Ahora la opacidad y la expansión comparten un solo tween reversible de 1.35 unidades.
+- **Máscara:** se calcula un polígono con los límites reales de `[data-window]` respecto a `[data-stage]`, ajustados a 0–100 %. Esto permite que la transición nazca en el encuadre y se expanda hacia el viewport sin una máscara rectangular arbitraria. Conserva el pin existente y no añade otro.
+- **Papel:** tres hojas con orígenes de giro independientes, movimientos asimétricos `rotationX`/`rotationY`, sombras sutilmente variables y apertura escalonada dentro de `career-to-page`. Se retiró el `clip-path` individual de hojas porque recortaba las sombras proyectadas; los bordes siguen suavemente irregulares mediante `border-radius`.
+- **Texto y móvil:** el texto se revela después de iniciar la transformación. En el flujo natural de tablet/móvil solo hay una entrada breve `once: true` del conjunto sin 3D ni scrub; las líneas y créditos conservan su lógica estable anterior. `prefers-reduced-motion` conserva la composición estática.
+- **Validación no realizada:** GitHub fue accesible a través del conector para editar archivos, pero `git ls-remote` desde el contenedor falló por DNS (`Could not resolve host: github.com`). No se ejecutaron `npm run typecheck`, `npm run build` ni pruebas visuales en navegadores reales en esta revisión. Requiere verificaciones de trayectoria → apertura → hojas → novela, avance/reversa y cambios de tamaño antes de producción.
