@@ -38,6 +38,7 @@ export function CareerJourney() {
       const credits = select("[data-credit]");
       const lines = select("[data-credit-line]");
       const book = select("[data-bridge-book]")[0];
+      const bookImage = select("[data-bridge-book] img")[0];
       if (context.conditions?.desktop) {
         root.dataset.enhanced = "desktop";
         gsap.set(frames.slice(1), { clipPath: "inset(100% 0% 0% 0%)" });
@@ -81,7 +82,7 @@ export function CareerJourney() {
           .to("[data-rail-right]", { xPercent: 150, rotation: 12, duration: 0.7 }, "page")
           .to("[data-leaf]", { xPercent: 0, rotation: 0, duration: 0.95, stagger: 0.09, ease: "power2.inOut" }, "page+=0.18")
           .to("[data-bridge-copy]", { clipPath: "inset(0% 0% 0% 0%)", y: 0, duration: 0.65, ease: "power2.out" }, "page+=0.7")
-          .fromTo(book, { autoAlpha: 0, y: 36, rotationY: -9, rotationZ: 3 },
+          .fromTo(bookImage, { autoAlpha: 0, y: 36, rotationY: -9, rotationZ: 3 },
             { autoAlpha: 1, y: 0, rotationY: -4, rotationZ: -3, duration: 0.85, ease: "power2.out", immediateRender: false }, "page+=0.62")
           .to("[data-page-art]", { opacity: 0.22, duration: 0.6 }, "page+=0.75")
           .to({}, { duration: 0.28 });
@@ -118,7 +119,7 @@ export function CareerJourney() {
             markers,
           });
         });
-        gsap.fromTo(book, { autoAlpha: 0.85, y: 16 }, {
+        gsap.fromTo(bookImage, { autoAlpha: 0.85, y: 16 }, {
           autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.out",
           scrollTrigger: { id: "mobile-book-reveal", trigger: book, start: "top 90%", once: true, markers },
         });
