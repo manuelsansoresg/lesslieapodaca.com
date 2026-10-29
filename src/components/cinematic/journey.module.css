@@ -80,10 +80,15 @@
 @media (max-width: 1000px), (max-height: 699px) {
   .journey[data-enhanced="natural"] .composition { grid-template-columns: 1fr; gap: 20px; }
   .journey[data-enhanced="natural"] .window { height: clamp(180px, 28svh, 320px); }
-  .journey[data-enhanced="natural"] .visual { position: sticky; top: 120px; align-self: start; z-index: 5; background: var(--color-brown); padding-bottom: 12px; }
+  /* Keep the section introduction above the shield before the visual sticks. */
+  .journey[data-enhanced="natural"] .heading { position: relative; z-index: 6; }
+  .journey[data-enhanced="natural"] .visual { --journey-sticky-top: 120px; position: sticky; top: var(--journey-sticky-top); align-self: start; z-index: 5; background: var(--color-brown); padding-bottom: 12px; }
+  /* Continue the opaque sticky surface up to the header, above passing credits.
+     Absolute positioning preserves the figure's layout and native sticky bounds. */
+  .journey[data-enhanced="natural"] .visual::before { content: ""; position: absolute; bottom: 100%; inset-inline: 0; height: var(--journey-sticky-top); background: var(--color-brown); pointer-events: none; }
 }
 @media (max-width: 650px) {
-  .journey[data-enhanced="natural"] .visual { top: 98px; padding-bottom: 12px; }
+  .journey[data-enhanced="natural"] .visual { --journey-sticky-top: 98px; padding-bottom: 12px; }
   .journey[data-enhanced="natural"] .window { height: clamp(180px, 28svh, 260px); }
 }
 
