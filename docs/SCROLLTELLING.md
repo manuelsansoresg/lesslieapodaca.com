@@ -29,3 +29,16 @@ Se reutilizan gsap, ScrollTrigger y useGSAP instalados. Cada sección limita sel
 ## Pendiente comercial existente
 
 Comprar mi libro continúa desactivado: purchaseUrl no tiene destino y todavía falta el número de WhatsApp indicado por el usuario. No se inventó un número ni se cambió su comportamiento durante esta revisión.
+
+
+## Ajustes de transición literaria y scroll táctil (29 de octubre de 2026)
+
+- La escena «De la escena a la página» incorpora el mockup ya existente `/images/lesslie/novela/libro-mockup-marfil.webp` a la derecha en escritorio. La misma timeline de CareerJourney controla su aparición, posición y rotación; no se añade otro pin ni un segundo ScrollTrigger.
+- En tablet y móvil el libro se coloca debajo del texto, dentro del flujo natural. Su revelado independiente ocurre una sola vez y no sigue cada píxel del scroll.
+- Los fotogramas de trayectoria en el modo natural cambian mediante ScrollTrigger callbacks discretos y tweens de 0.5 segundos, con cancelación de tweens anteriores. Las líneas de progreso dejan de emplear `scrub` en móvil; los títulos y créditos permanecen estáticos.
+- Los tres fotogramas originales y el aviso de imágenes conceptuales se conservan. El modo de movimiento reducido sigue evitando estas animaciones.
+- No se cambiaron los ajustes de pin ni la cronología de las producciones en escritorio.
+
+### Validación pendiente
+
+Los cambios quedaron subidos a `main`. No se pudo descargar el repositorio desde el entorno de ejecución (DNS de github.com no disponible), así que **no se han ejecutado nuevamente** `npm run typecheck`, `npm run build` ni pruebas de navegador sobre este commit. Verificar con una compilación local y Safari iPhone/Chrome Android: scroll lento, rápido, reversa, cambios de orientación y `prefers-reduced-motion`.
