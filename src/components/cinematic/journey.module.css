@@ -92,3 +92,44 @@
   .journey[data-enhanced="natural"] .visual { top: 98px; padding-bottom: 12px; }
   .journey[data-enhanced="natural"] .window { height: clamp(180px, 28svh, 260px); }
 }
+
+/* Editorial book reveal: uses the existing novel mockup, not extra ornamentation. */
+.bridgeCopy { z-index: 2; pointer-events: none; }
+.bridgeBook {
+  position: absolute;
+  z-index: 1;
+  right: clamp(5%, 9vw, 15%);
+  top: 50%;
+  width: clamp(210px, 30vw, 430px);
+  margin: 0;
+  transform: translateY(-50%) perspective(1100px) rotateY(-4deg) rotateZ(-3deg);
+  filter: drop-shadow(20px 26px 24px rgb(52 33 3 / .22));
+  pointer-events: none;
+}
+.bridgeBook img { display: block; width: 100%; height: auto; object-fit: contain; }
+.bridgeCopy { width: min(1240px, calc(100% - 112px)); }
+.bridgeCopy h2 { max-width: 780px; }
+@media (max-width: 1000px), (max-height: 699px) {
+  .paper { display: flex; flex-direction: column; align-items: stretch; justify-content: center; }
+  .bridgeCopy { width: min(1240px, calc(100% - 72px)); padding-block: 60px 20px; }
+  .bridgeBook {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: min(360px, 64vw);
+    align-self: center;
+    margin: 0 auto 55px;
+    transform: perspective(1100px) rotateY(-4deg) rotateZ(-3deg);
+  }
+  /* A static title is more legible under fast touch scrolling than a scrubbed reveal. */
+  .journey[data-enhanced="natural"] .creditLine { transform: scaleX(1); }
+}
+@media (max-width: 650px) {
+  .bridgeCopy { width: calc(100% - 44px); padding-block: 72px 28px; }
+  .bridgeCopy h2 { font-size: clamp(52px, 12vw, 72px); }
+  .bridgeBook { width: min(320px, 70vw); margin-bottom: 55px; }
+  .paper { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bridgeBook { transform: none; }
+}
