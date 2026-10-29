@@ -42,34 +42,25 @@ export function CareerJourney() {
         gsap.set(frames.slice(1), { clipPath: "inset(100% 0% 0% 0%)" });
         gsap.set(credits.slice(1), { color: "#e9d2af" });
         gsap.set(lines, { scaleX: 0, transformOrigin: "left" });
-        // Measure the actual film aperture, not a hard-coded rectangle.
-        // A polygon keeps every edge within the stage during pin refresh/resizes.
-        const frameMask = () => {
+        const paperMask = (opening: boolean) => {
           const stage = select("[data-stage]")[0].getBoundingClientRect();
           const frame = select("[data-window]")[0].getBoundingClientRect();
-          const pct = (value: number) => Math.max(0, Math.min(100, value));
-          const left = pct((frame.left - stage.left) / stage.width * 100);
-          const right = pct((frame.right - stage.left) / stage.width * 100);
-          const top = pct((frame.top - stage.top) / stage.height * 100);
-          const bottom = pct((frame.bottom - stage.top) / stage.height * 100);
-          return `polygon(${left}% ${top}%, ${right}% ${top}%, ${right}% ${bottom}%, ${left}% ${bottom}%)`;
+          const top = (frame.top - stage.top) / stage.height * 100;
+          const right = (stage.right - frame.right) / stage.width * 100;
+          const bottom = (stage.bottom - frame.bottom) / stage.height * 100;
+          const edge = (frame.right - stage.left) / stage.width * 100;
+          const left = (frame.left - stage.left) / stage.width * 100;
+          const tilt = 12 / stage.width * 100;
+          return `polygon(${opening ? edge : left + tilt}% ${top}%, ${100 - right}% ${top}%, ${100 - right}% ${100 - bottom}%, ${opening ? edge : left - tilt}% ${100 - bottom}%)`;
         };
-        // Keep the paper masked from the first frame; never expose its full box.
-        gsap.set("[data-paper]", { clipPath: frameMask, opacity: 0 });
-        gsap.set("[data-page-art]", { opacity: 0.65 });
-        gsap.set("[data-leaf]", { xPercent: -110, rotation: -14, transformOrigin: "0% 100%" });
-        gsap.set("[data-bridge-copy]", { clipPath: "inset(0% 0% 100% 0%)", y: 34 });
-        gsap.set("[data-manuscript]", { autoAlpha: 0, y: 18, rotationY: -5, transformPerspective: 1200 });
-        gsap.set("[data-manuscript-sheet]", { transformPerspective: 1200, transformStyle: "preserve-3d" });
-        gsap.set("[data-manuscript-sheet]:first-child", { transformOrigin: "92% 80%" });
-        gsap.set("[data-manuscript-sheet]:nth-child(2)", { transformOrigin: "13% 78%" });
-        gsap.set("[data-manuscript-sheet]:last-child", { transformOrigin: "14% 88%" });
+        gsap.set("[data-paper]", { clipPath: () => paperMask(true) });
+        gsap.set("[data-bridge-copy]", { autoAlpha: 0, y: 20 });
         const sequence = gsap.timeline({
           defaults: { ease: "none" },
           scrollTrigger: {
             id: "career-to-page", trigger: root, pin: select("[data-stage]")[0],
-            start: "top 112px", end: () => `+=${Math.round(window.innerHeight * 2.8)}`,
-            scrub: 0.85, anticipatePin: 1, invalidateOnRefresh: true, markers,
+            start: "top 112px", end: () => `+=${Math.round(window.innerHeight * 3.8)}`,
+            scrub: 0.65, anticipatePin: 1, invalidateOnRefresh: true, markers,
           },
         });
         sequence.to(lines[0], { scaleX: 1, duration: 0.65 }, 0);
@@ -83,40 +74,13 @@ export function CareerJourney() {
             .to(lines[index], { scaleX: 1, duration: 0.65 }, at)
             .to("[data-reel]", { yPercent: -index * 12, duration: 0.6 }, at);
         });
-        // The final frame becomes the opening of a spread; the same pinned stage
-        // carries both scenes, so no second pin or background cut is needed.
-        sequence.addLabel("page", 2.55)
-          // The film aperture grows to the entire stage. Both opacity and mask
-          // advance together so there is never a visible full-screen ivory block.
-          .fromTo("[data-paper]", { clipPath: frameMask, opacity: 0 },
-            { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", opacity: 1,
-              duration: 1.35, ease: "power2.inOut", immediateRender: false }, "page")
-          .to("[data-film-body]", { y: -18, duration: 0.85 }, "page+=0.12")
-          .to("[data-rail-left]", { xPercent: -150, rotation: -12, duration: 0.9 }, "page+=0.12")
-          .to("[data-rail-right]", { xPercent: 150, rotation: 12, duration: 0.9 }, "page+=0.12")
-          .to("[data-leaf]", { xPercent: 0, rotation: 0, duration: 1.15, stagger: 0.1, ease: "power2.inOut" }, "page+=0.35")
-          .to("[data-page-art]", { opacity: 0.22, duration: 0.85 }, "page+=0.4")
-          .to("[data-bridge-copy]", { clipPath: "inset(0% 0% 0% 0%)", y: 0, duration: 0.8, ease: "power2.out" }, "page+=0.92")
-          .fromTo("[data-manuscript]", { autoAlpha: 0, y: 18, rotationY: -5 },
-            { autoAlpha: 1, y: 0, rotationY: 0, duration: 0.85, ease: "power2.out", immediateRender: false }, "page+=1.05")
-          // Individual sheets pivot from their own binding edges; the front remains
-          // visually anchored while the two rear leaves fan outward.
-          .fromTo("[data-manuscript-sheet]:first-child",
-            { x: 10, y: 25, rotationX: 6, rotationY: -16, opacity: 0.75 },
-            { x: -18, y: -8, rotationX: 1, rotationY: -8, opacity: 1,
-              filter: "drop-shadow(7px 13px 12px rgba(52,33,3,.12))", duration: 1.3,
-              ease: "power2.inOut", immediateRender: false }, "page+=1.26")
-          .fromTo("[data-manuscript-sheet]:nth-child(2)",
-            { x: -6, y: 19, rotationX: -5, rotationY: 13, opacity: 0.75 },
-            { x: 18, y: -3, rotationX: 0, rotationY: 7, opacity: 1,
-              filter: "drop-shadow(10px 15px 12px rgba(52,33,3,.15))", duration: 1.3,
-              ease: "power2.inOut", immediateRender: false }, "page+=1.42")
-          .fromTo("[data-manuscript-sheet]:last-child",
-            { y: 16, rotationX: 8, rotationY: -9, opacity: 0.78 },
-            { y: 0, rotationX: 1, rotationY: -2, opacity: 1,
-              filter: "drop-shadow(5px 10px 9px rgba(52,33,3,.10))", duration: 1.2,
-              ease: "power2.out", immediateRender: false }, "page+=1.62")
-          .to({}, { duration: 0.16 });
+        // A zero-width edge grows across the final frame, then becomes the
+        // editorial surface. The opaque plane stays inside its moving mask.
+        sequence.addLabel("page", 2.65)
+          .to("[data-paper]", { clipPath: () => paperMask(false), duration: 0.95, ease: "power2.inOut" }, "page")
+          .to("[data-paper]", { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 1.45, ease: "power2.inOut" }, "page+=0.95")
+          .to("[data-bridge-copy]", { autoAlpha: 1, y: 0, duration: 0.58, ease: "power2.out" }, "page+=0.9")
+          .to({}, { duration: 0.38 }, "page+=2.4");
       } else {
         // Native mobile/tablet scrolling: text remains static and scene changes
         // are discrete instead of tracking every pixel of a fast touch gesture.
@@ -139,11 +103,6 @@ export function CareerJourney() {
         showFrame(0, true);
         // Progress lines are static on touch devices to avoid rapid flickering.
         gsap.set(lines, { scaleX: 1, transformOrigin: "left" });
-        // A brief one-time appearance, no 3D scrub on touch devices.
-        gsap.fromTo("[data-manuscript]", { opacity: 0.88, y: 12 }, {
-          opacity: 1, y: 0, duration: 0.7, ease: "power2.out",
-          scrollTrigger: { trigger: "[data-manuscript]", start: "top 92%", once: true, markers },
-        });
         credits.forEach((credit, index) => {
           ScrollTrigger.create({
             id: `career-scene-${index + 1}`,
@@ -205,35 +164,11 @@ export function CareerJourney() {
           <p className={styles.direction} aria-hidden="true">Continúa el recorrido <span>↓</span></p>
         </div>
         <div data-paper className={styles.paper}>
-          <Image data-page-art className={styles.pageArt} src="/images/lesslie/transicion/de-escena-a-pagina.webp" alt="" fill sizes="100vw" aria-hidden="true" />
-          <div className={styles.leaves} aria-hidden="true">
-            <span data-leaf /><span data-leaf /><span data-leaf />
-          </div>
           <div data-bridge-copy className={`section-wrap ${styles.bridgeCopy}`}>
-            <div className={styles.bridgeText}>
-              <p className="eyebrow">Actriz · Escritora</p>
-              <h2>De la escena<br /><em>a la página.</em></h2>
-              <span className={styles.inkRule} aria-hidden="true" />
-              <p className={styles.bookTitle}>{site.book.title}</p>
-            </div>
-            <figure data-manuscript className={styles.manuscript} aria-label="Composición editorial de hojas de manuscrito">
-              <div data-manuscript-sheet className={`${styles.sheet} ${styles.sheetBack}`} aria-hidden="true">
-                <span className={styles.sheetFolio}>Notas de escritura</span>
-                <span className={styles.typedLines} />
-              </div>
-              <div data-manuscript-sheet className={`${styles.sheet} ${styles.sheetMiddle}`} aria-hidden="true">
-                <span className={styles.sheetFolio}>Borrador · Ideas</span>
-                <span className={styles.typedLines} />
-              </div>
-              <div data-manuscript-sheet className={`${styles.sheet} ${styles.sheetFront}`} aria-hidden="true">
-                <span className={styles.sheetFolio}>El oficio de escribir</span>
-                <span className={styles.sheetHeading}>Una historia<br /><i>toma forma.</i></span>
-                <span className={styles.sheetRule} />
-                <span className={styles.sheetNotes}>Personajes · Memoria · Imaginación</span>
-                <span className={styles.typedLines} />
-                <span className={styles.sheetPage}>01</span>
-              </div>
-            </figure>
+            <p className="eyebrow">Actriz · Escritora</p>
+            <h2>De la escena<br /><em>a la página.</em></h2>
+            <span className={styles.inkRule} aria-hidden="true" />
+            <p className={styles.bookTitle}>{site.book.title}</p>
           </div>
         </div>
       </div>

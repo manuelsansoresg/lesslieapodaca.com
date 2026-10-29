@@ -25,11 +25,7 @@
 .creditLine { position: absolute; bottom: -1px; left: 0; right: 0; height: 1px; background: var(--color-gold); transform-origin: left; }
 .direction { display: flex; justify-content: space-between; font-size: 8px; text-transform: uppercase; letter-spacing: .19em; color: var(--color-champagne); padding-top: 24px; }
 .direction span { font-size: 19px; line-height: 1; }
-.paper { position: relative; min-height: 620px; display: flex; align-items: center; background: var(--color-ivory); color: var(--color-brown); isolation: isolate; overflow: clip; }
-.pageArt { z-index: -2; object-fit: cover; opacity: .22; }
-.leaves { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
-.leaves span { position: absolute; inset: 0; background: linear-gradient(110deg, transparent, #f8f3e9dc 45%); border-left: 1px solid #d5a14f44; }
-.leaves span:nth-child(1) { left: 42%; }.leaves span:nth-child(2) { left: 47%; }.leaves span:nth-child(3) { left: 52%; }
+.paper { position: relative; min-height: 620px; display: flex; align-items: center; background: linear-gradient(105deg, #eadfce, var(--color-ivory) 22%, #fbf7ef 75%, #efe5d6); color: var(--color-brown); isolation: isolate; overflow: clip; }
 .bridgeCopy { position: relative; padding-block: 90px; }
 .bridgeCopy .eyebrow { color: var(--color-bougainvillea); }
 .bridgeCopy h2 { font-size: clamp(64px, 7.5vw, 112px); margin-top: 24px; line-height: .95; }
@@ -60,11 +56,8 @@
   .paper { min-height: 480px; }
   .bridgeCopy { padding-block: 80px; }
   .bridgeCopy h2 { font-size: clamp(55px, 12vw, 78px); }
-  .leaves span:nth-child(1) { left: 65%; }.leaves span:nth-child(2) { left: 75%; }.leaves span:nth-child(3) { left: 85%; }
 }
 /* Carry the existing ivory into the original novel surface, without a seam. */
-.pageArt { mask-image: linear-gradient(#000 65%, transparent 100%); }
-.leaves { mask-image: linear-gradient(#000 65%, transparent 100%); }
 .journey + :global(.novel-section) { background: linear-gradient(var(--color-ivory), #efe5d6 220px); }
 .journey + :global(.novel-section) > img { mask-image: linear-gradient(transparent, #000 220px); }
 .frameCredit { position: absolute; z-index: 2; bottom: 22px; left: 38px; right: 38px; font-family: var(--font-editorial); font-size: clamp(22px, 2.2vw, 32px); line-height: 1.05; color: var(--color-ivory); text-shadow: 0 1px 16px var(--color-charcoal); }
@@ -93,87 +86,17 @@
   .journey[data-enhanced="natural"] .window { height: clamp(180px, 28svh, 260px); }
 }
 
-
-/* Manuscript spread: irregular paper edges, tactile fibre and restrained typesetting. */
-.bridgeCopy { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(260px, .88fr); gap: clamp(28px, 4vw, 72px); align-items: center; }
-.bridgeText { min-width: 0; }
-.manuscript {
-  position: relative; width: min(100%, 410px); height: 390px;
-  margin: 0 auto; perspective: 1100px; transform-style: preserve-3d;
-  pointer-events: none; isolation: isolate;
-  transform-style: preserve-3d;
-}
-.sheet {
-  position: absolute; width: 72%; height: 83%; left: 14%; top: 9%;
-  padding: 32px 28px; overflow: hidden;
-  display: flex; flex-direction: column;
-  background:
-    repeating-linear-gradient(0deg, transparent 0 3px, rgb(96 70 36 / .014) 3px 4px),
-    radial-gradient(ellipse at 17% 15%, #fffdf5 0%, #f5ebd9 70%, #eae0cb 100%);
-  border: 1px solid rgb(112 80 44 / .18);
-  /* Irregular corners without clipping the physical cast shadow. */
-  border-radius: 2px 5px 3px 6px / 5px 2px 6px 3px;
-  box-shadow: 1px 3px 5px rgb(52 33 3 / .10), 11px 19px 32px rgb(52 33 3 / .17);
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
-}
-.sheet::before {
-  content: ""; position: absolute; inset: 11px;
-  border-left: 1px solid rgb(178 141 99 / .25);
-  pointer-events: none;
-}
-.sheet::after {
-  content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 12px;
-  background: linear-gradient(90deg, transparent, rgb(84 59 33 / .055));
-  pointer-events: none;
-}
-.sheetBack { z-index: 1; transform: translate(-29px, -8px) rotate(-12deg); }
-.sheetMiddle { z-index: 2; transform: translate(23px, 0px) rotate(9deg); }
-.sheetFront { z-index: 3; transform: translate(1px, 11px) rotate(-2deg); }
-.sheetFolio { display: block; font: 600 9px/1.5 var(--font-body); text-transform: uppercase; letter-spacing: .2em; color: #9a785c; }
-.sheetHeading { display: block; margin-top: 45px; font: 400 clamp(26px, 2.5vw, 37px)/1.02 var(--font-editorial); color: #4b3121; }
-.sheetHeading i { color: #9a3e61; font-weight: 400; }
-.sheetRule { display: block; width: 45px; height: 1px; margin: 24px 0 16px; background: #b88184; }
-.sheetNotes { font: 400 12px/1.65 var(--font-editorial); letter-spacing: .03em; color: #94765e; }
-.typedLines {
-  display: block; height: 70px; margin-top: auto; opacity: .48;
-  background: repeating-linear-gradient(to bottom,
-    transparent 0 11px, rgb(112 83 53 / .28) 11px 12px, transparent 12px 18px);
-  mask-image: linear-gradient(90deg, #000 0 72%, transparent 94%);
-}
-.sheetPage { display: block; margin-top: 10px; text-align: right; font: 10px var(--font-editorial); color: #b19a7f; }
-.sheetBack .typedLines, .sheetMiddle .typedLines { margin-top: 32px; height: 160px; opacity: .35; }
-.journey[data-enhanced="desktop"] .manuscript { transform-style: preserve-3d; }
+.bridgeCopy { z-index: 2; pointer-events: none; }
+.bridgeCopy { width: min(1240px, calc(100% - 112px)); }
+.bridgeCopy h2 { max-width: 780px; }
 @media (max-width: 1000px), (max-height: 699px) {
-  .bridgeCopy { grid-template-columns: minmax(0, 1.15fr) minmax(230px, .85fr); gap: 24px; }
-  .bridgeCopy h2 { font-size: clamp(50px, 6.1vw, 84px); }
-  .manuscript { max-width: 340px; height: 320px; }
-  .sheet { padding: 25px 20px; }
-  .sheetHeading { margin-top: 26px; }
+  .paper { background: linear-gradient(180deg, var(--color-brown), var(--color-ivory) 96px); }
+  .bridgeCopy { width: min(1240px, calc(100% - 72px)); padding-block: 115px 80px; }
+  /* A static title is more legible under fast touch scrolling than a scrubbed reveal. */
+  .journey[data-enhanced="natural"] .creditLine { transform: scaleX(1); }
 }
 @media (max-width: 650px) {
+  .bridgeCopy { width: calc(100% - 44px); padding-block: 115px 80px; }
+  .bridgeCopy h2 { font-size: clamp(52px, 12vw, 72px); }
   .paper { min-height: 0; }
-  .bridgeCopy { display: flex; flex-direction: column; align-items: stretch; gap: 20px; padding-block: 70px 65px; }
-  .bridgeCopy h2 { font-size: clamp(52px, 12vw, 78px); }
-  .manuscript { width: min(76vw, 320px); height: 270px; flex: none; margin: 0 auto; }
-  .sheet { width: 67%; height: 82%; left: 16%; top: 8%; padding: 20px 16px; }
-  .sheetHeading { margin-top: 18px; font-size: 26px; }
-  .sheetRule { margin: 14px 0 8px; }
-  .sheetNotes { font-size: 10px; }
-  .sheetBack { transform: translate(-14px, -5px) rotate(-8deg); }
-  .sheetMiddle { transform: translate(12px, 0px) rotate(6deg); }
-  .sheetFront { transform: translate(0px, 6px) rotate(-1deg); }
-  .sheetBack .typedLines, .sheetMiddle .typedLines { height: 90px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .manuscript { transform: none !important; }
-}
-
-/* Keep perspective and paper shadows coherent throughout the cinematic turn. */
-.journey[data-enhanced="desktop"] .bridgeCopy { z-index: 2; }
-.journey[data-enhanced="desktop"] .paper { will-change: clip-path, opacity; }
-.journey[data-enhanced="desktop"] .sheet { will-change: transform, opacity; }
-@media (max-width: 1000px), (max-height: 699px) {
-  .journey[data-enhanced="natural"] .paper,
-  .journey[data-enhanced="natural"] .sheet { will-change: auto; }
 }
