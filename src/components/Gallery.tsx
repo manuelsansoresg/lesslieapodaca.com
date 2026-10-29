@@ -49,7 +49,7 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
             <em>cuentan algo más.</em>
           </h2>
         </div>
-        <p>Retratos, encuentros y vida en escena.</p>
+        <p>Retratos, encuentros y vida en escena. Selecciona una imagen para verla en grande.</p>
       </div>
       <div className="gallery-grid">
         {images.map((item, i) => (
@@ -65,7 +65,8 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
               fill
               sizes="(max-width: 800px) calc(100vw - 44px), (max-width: 1100px) 50vw, 620px"
             />
-            <span>{item.category}</span>
+            <span className="gallery-category">{item.category}</span>
+            <span className="gallery-open-hint" aria-hidden="true"><span className="gallery-open-icon">↗</span><span>Ver fotografía</span></span>
           </button>
         ))}
       </div>
