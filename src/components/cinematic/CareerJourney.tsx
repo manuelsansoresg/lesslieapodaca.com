@@ -37,6 +37,7 @@ export function CareerJourney() {
       const frames = select("[data-frame]");
       const credits = select("[data-credit]");
       const lines = select("[data-credit-line]");
+      const book = select("[data-bridge-book]")[0];
       if (context.conditions?.desktop) {
         root.dataset.enhanced = "desktop";
         gsap.set(frames.slice(1), { clipPath: "inset(100% 0% 0% 0%)" });
@@ -80,28 +81,47 @@ export function CareerJourney() {
           .to("[data-rail-right]", { xPercent: 150, rotation: 12, duration: 0.7 }, "page")
           .to("[data-leaf]", { xPercent: 0, rotation: 0, duration: 0.95, stagger: 0.09, ease: "power2.inOut" }, "page+=0.18")
           .to("[data-bridge-copy]", { clipPath: "inset(0% 0% 0% 0%)", y: 0, duration: 0.65, ease: "power2.out" }, "page+=0.7")
+          .fromTo(book, { autoAlpha: 0, y: 36, rotationY: -9, rotationZ: 3 },
+            { autoAlpha: 1, y: 0, rotationY: -4, rotationZ: -3, duration: 0.85, ease: "power2.out", immediateRender: false }, "page+=0.62")
           .to("[data-page-art]", { opacity: 0.22, duration: 0.6 }, "page+=0.75")
           .to({}, { duration: 0.28 });
       } else {
-        // Native flow: keep the visual beside the credits, with reversible frame wipes.
+        // Native mobile/tablet scrolling: text remains static and scene changes
+        // are discrete instead of tracking every pixel of a fast touch gesture.
         root.dataset.enhanced = "natural";
-        gsap.set(frames.slice(1), { clipPath: "inset(100% 0% 0% 0%)" });
-        credits.forEach((credit, index) => {
-          if (index > 0) {
-            gsap.fromTo(frames[index], { clipPath: "inset(100% 0% 0% 0%)" }, {
-              clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: {
-                id: `career-frame-${index + 1}`, trigger: credit,
-                start: "top 64%", end: "top 56%", scrub: 0.2, markers,
-              },
-            });
+        const visualFrames = frames as HTMLElement[];
+        const showFrame = (index: number, immediate = false) => {
+          gsap.killTweensOf(visualFrames);
+          const states = visualFrames.map((_, position) => ({
+            clipPath: position <= index ? "inset(0% 0% 0% 0%)" : "inset(100% 0% 0% 0%)",
+          }));
+          if (immediate) {
+            visualFrames.forEach((frame, position) => gsap.set(frame, states[position]));
+          } else {
+            visualFrames.forEach((frame, position) => gsap.to(frame, {
+              ...states[position], duration: 0.5, ease: "power2.inOut",
+              overwrite: true,
+            }));
           }
-          gsap.fromTo(lines[index], { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: {
-            id: `career-credit-${index + 1}`, trigger: credit, start: "top 80%", end: "bottom 45%", scrub: true, markers,
-          } });
+        };
+        showFrame(0, true);
+        // Progress lines are static on touch devices to avoid rapid flickering.
+        gsap.set(lines, { scaleX: 1, transformOrigin: "left" });
+        credits.forEach((credit, index) => {
+          ScrollTrigger.create({
+            id: `career-scene-${index + 1}`,
+            trigger: credit,
+            start: "top 68%",
+            onEnter: () => showFrame(index),
+            onEnterBack: () => showFrame(index),
+            onLeaveBack: () => { if (index > 0) showFrame(index - 1); },
+            markers,
+          });
         });
-        gsap.fromTo("[data-page-art]", { y: 20 }, { y: -20, ease: "none", scrollTrigger: {
-          id: "page-natural", trigger: select("[data-paper]")[0], start: "top bottom", end: "bottom top", scrub: 0.5, markers,
-        } });
+        gsap.fromTo(book, { autoAlpha: 0.85, y: 16 }, {
+          autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.out",
+          scrollTrigger: { id: "mobile-book-reveal", trigger: book, start: "top 90%", once: true, markers },
+        });
       }
       // Re-measure after a breakpoint removes the desktop pin and changes the flow.
       const refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
@@ -162,6 +182,11 @@ export function CareerJourney() {
             <span className={styles.inkRule} aria-hidden="true" />
             <p className={styles.bookTitle}>{site.book.title}</p>
           </div>
+          <figure data-bridge-book className={styles.bridgeBook}>
+            <Image src="/images/lesslie/novela/libro-mockup-marfil.webp"
+              alt="Libro ¿Cómo sabes que es amor?, de Lesslie Apodaca"
+              width={650} height={850} sizes="(max-width: 650px) 70vw, 34vw" />
+          </figure>
         </div>
       </div>
     </section>
