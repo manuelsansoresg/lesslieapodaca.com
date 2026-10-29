@@ -830,6 +830,30 @@ p + p {
 .purchase-cover {
   padding: 15px 22px;
 }
+.purchase-tilt-surface {
+  width: min(100%, 390px);
+  margin-inline: auto;
+  perspective: 1000px;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.purchase-tilt-surface:active { cursor: grabbing; }
+.purchase-tilt-art {
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+}
+.purchase-tilt-surface img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .purchase-tilt-surface { cursor: auto; }
+  .purchase-tilt-art { transform: none !important; }
+}
+
 .purchase-cover .image-cover {
   transform: rotate(6deg);
   max-width: 300px;
