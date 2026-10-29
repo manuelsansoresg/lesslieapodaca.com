@@ -57,3 +57,12 @@ Los cambios quedaron subidos a `main`. No se pudo descargar el repositorio desde
 - El puente vuelve a utilizar exclusivamente máscaras, pliegues marfil y tipografía como transición editorial; se conserva el efecto GSAP de las hojas y el título.
 - Se conservan las transiciones discretas entre fotogramas en móvil y las mejoras de estabilidad táctil.
 - Las observaciones anteriores sobre el mockup se mantienen como historial, no como descripción del estado actual.
+
+
+## Composición de manuscritos en la transición (29 de octubre de 2026)
+
+- Sustituye el vacío derecho por tres hojas HTML/CSS sin imágenes de portada ni citas atribuidas a la novela. Bordes ligeramente irregulares, textura de fibras, folios, líneas tipográficas y sombras discretas; los textos son rótulos editoriales genéricos.
+- El título permanece intacto a la izquierda. Desktop: los papeles entran escalonados y se abren ligeramente al final dentro de la **misma** timeline GSAP `career-to-page`, reversible al regresar; sin otro pin.
+- Tablet/móvil: las hojas se presentan en flujo natural debajo del título, con transformaciones CSS estáticas y sin scrub ni nuevos ScrollTriggers; se conserva el comportamiento de fotogramas discretos existente.
+- Se respeta `prefers-reduced-motion`: no se crea la animación de GSAP y la composición permanece visible en estado estático.
+- **Validación pendiente:** se intentó `git clone` para ejecutar `npm ci`, `npm run typecheck` y `npm run build`, pero el entorno falló con `Could not resolve host: github.com`. No hubo ejecución de build ni pruebas de Safari iPhone, Chrome Android o scroll reversible en navegador real en esta sesión. Comprobar en local antes de publicar.
