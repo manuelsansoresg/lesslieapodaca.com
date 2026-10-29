@@ -42,23 +42,34 @@ export function CareerJourney() {
         gsap.set(frames.slice(1), { clipPath: "inset(100% 0% 0% 0%)" });
         gsap.set(credits.slice(1), { color: "#e9d2af" });
         gsap.set(lines, { scaleX: 0, transformOrigin: "left" });
+        // Measure the actual film aperture, not a hard-coded rectangle.
+        // A polygon keeps every edge within the stage during pin refresh/resizes.
         const frameMask = () => {
           const stage = select("[data-stage]")[0].getBoundingClientRect();
           const frame = select("[data-window]")[0].getBoundingClientRect();
-          return `inset(${(frame.top - stage.top) / stage.height * 100}% ${(stage.right - frame.right) / stage.width * 100}% ${(stage.bottom - frame.bottom) / stage.height * 100}% ${(frame.left - stage.left) / stage.width * 100}%)`;
+          const pct = (value: number) => Math.max(0, Math.min(100, value));
+          const left = pct((frame.left - stage.left) / stage.width * 100);
+          const right = pct((frame.right - stage.left) / stage.width * 100);
+          const top = pct((frame.top - stage.top) / stage.height * 100);
+          const bottom = pct((frame.bottom - stage.top) / stage.height * 100);
+          return `polygon(${left}% ${top}%, ${right}% ${top}%, ${right}% ${bottom}%, ${left}% ${bottom}%)`;
         };
+        // Keep the paper masked from the first frame; never expose its full box.
         gsap.set("[data-paper]", { clipPath: frameMask, opacity: 0 });
         gsap.set("[data-page-art]", { opacity: 0.65 });
         gsap.set("[data-leaf]", { xPercent: -110, rotation: -14, transformOrigin: "0% 100%" });
         gsap.set("[data-bridge-copy]", { clipPath: "inset(0% 0% 100% 0%)", y: 34 });
-        gsap.set("[data-manuscript]", { autoAlpha: 0, y: 34, rotationY: -9, transformPerspective: 1100 });
-        gsap.set("[data-manuscript-sheet]", { transformOrigin: "15% 80%" });
+        gsap.set("[data-manuscript]", { autoAlpha: 0, y: 18, rotationY: -5, transformPerspective: 1200 });
+        gsap.set("[data-manuscript-sheet]", { transformPerspective: 1200, transformStyle: "preserve-3d" });
+        gsap.set("[data-manuscript-sheet]:first-child", { transformOrigin: "92% 80%" });
+        gsap.set("[data-manuscript-sheet]:nth-child(2)", { transformOrigin: "13% 78%" });
+        gsap.set("[data-manuscript-sheet]:last-child", { transformOrigin: "14% 88%" });
         const sequence = gsap.timeline({
           defaults: { ease: "none" },
           scrollTrigger: {
             id: "career-to-page", trigger: root, pin: select("[data-stage]")[0],
             start: "top 112px", end: () => `+=${Math.round(window.innerHeight * 2.8)}`,
-            scrub: 0.65, anticipatePin: 1, invalidateOnRefresh: true, markers,
+            scrub: 0.85, anticipatePin: 1, invalidateOnRefresh: true, markers,
           },
         });
         sequence.to(lines[0], { scaleX: 1, duration: 0.65 }, 0);
@@ -75,21 +86,37 @@ export function CareerJourney() {
         // The final frame becomes the opening of a spread; the same pinned stage
         // carries both scenes, so no second pin or background cut is needed.
         sequence.addLabel("page", 2.55)
-          .to("[data-paper]", { opacity: 1, duration: 0.22 }, "page")
-          .to("[data-film-body]", { y: -24, duration: 0.65 }, "page")
-          .fromTo("[data-paper]", { clipPath: frameMask }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.05, ease: "power2.inOut", immediateRender: false }, "page+=0.12")
-          .to("[data-rail-left]", { xPercent: -150, rotation: -12, duration: 0.7 }, "page")
-          .to("[data-rail-right]", { xPercent: 150, rotation: 12, duration: 0.7 }, "page")
-          .to("[data-leaf]", { xPercent: 0, rotation: 0, duration: 0.95, stagger: 0.09, ease: "power2.inOut" }, "page+=0.18")
-          .to("[data-bridge-copy]", { clipPath: "inset(0% 0% 0% 0%)", y: 0, duration: 0.65, ease: "power2.out" }, "page+=0.7")
-          .fromTo("[data-manuscript]", { autoAlpha: 0, y: 34, rotationY: -9 },
-            { autoAlpha: 1, y: 0, rotationY: 0, duration: 0.65, ease: "power2.out", immediateRender: false }, "page+=0.68")
-          .fromTo("[data-manuscript-sheet]", { y: 27, rotationY: -12, opacity: 0.65 },
-            { y: 0, rotationY: 0, opacity: 1, duration: 0.9, stagger: 0.12, ease: "power2.out", immediateRender: false }, "page+=0.76")
-          .to("[data-manuscript-sheet]:first-child", { x: -15, rotation: -11, rotationY: -6, duration: 0.7, ease: "power2.inOut" }, "page+=1.65")
-          .to("[data-manuscript-sheet]:last-child", { x: 17, rotation: 10, rotationY: 7, duration: 0.7, ease: "power2.inOut" }, "page+=1.65")
-          .to("[data-page-art]", { opacity: 0.22, duration: 0.6 }, "page+=0.75")
-          .to({}, { duration: 0.28 });
+          // The film aperture grows to the entire stage. Both opacity and mask
+          // advance together so there is never a visible full-screen ivory block.
+          .fromTo("[data-paper]", { clipPath: frameMask, opacity: 0 },
+            { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", opacity: 1,
+              duration: 1.35, ease: "power2.inOut", immediateRender: false }, "page")
+          .to("[data-film-body]", { y: -18, duration: 0.85 }, "page+=0.12")
+          .to("[data-rail-left]", { xPercent: -150, rotation: -12, duration: 0.9 }, "page+=0.12")
+          .to("[data-rail-right]", { xPercent: 150, rotation: 12, duration: 0.9 }, "page+=0.12")
+          .to("[data-leaf]", { xPercent: 0, rotation: 0, duration: 1.15, stagger: 0.1, ease: "power2.inOut" }, "page+=0.35")
+          .to("[data-page-art]", { opacity: 0.22, duration: 0.85 }, "page+=0.4")
+          .to("[data-bridge-copy]", { clipPath: "inset(0% 0% 0% 0%)", y: 0, duration: 0.8, ease: "power2.out" }, "page+=0.92")
+          .fromTo("[data-manuscript]", { autoAlpha: 0, y: 18, rotationY: -5 },
+            { autoAlpha: 1, y: 0, rotationY: 0, duration: 0.85, ease: "power2.out", immediateRender: false }, "page+=1.05")
+          // Individual sheets pivot from their own binding edges; the front remains
+          // visually anchored while the two rear leaves fan outward.
+          .fromTo("[data-manuscript-sheet]:first-child",
+            { x: 10, y: 25, rotationX: 6, rotationY: -16, opacity: 0.75 },
+            { x: -18, y: -8, rotationX: 1, rotationY: -8, opacity: 1,
+              filter: "drop-shadow(7px 13px 12px rgba(52,33,3,.12))", duration: 1.3,
+              ease: "power2.inOut", immediateRender: false }, "page+=1.26")
+          .fromTo("[data-manuscript-sheet]:nth-child(2)",
+            { x: -6, y: 19, rotationX: -5, rotationY: 13, opacity: 0.75 },
+            { x: 18, y: -3, rotationX: 0, rotationY: 7, opacity: 1,
+              filter: "drop-shadow(10px 15px 12px rgba(52,33,3,.15))", duration: 1.3,
+              ease: "power2.inOut", immediateRender: false }, "page+=1.42")
+          .fromTo("[data-manuscript-sheet]:last-child",
+            { y: 16, rotationX: 8, rotationY: -9, opacity: 0.78 },
+            { y: 0, rotationX: 1, rotationY: -2, opacity: 1,
+              filter: "drop-shadow(5px 10px 9px rgba(52,33,3,.10))", duration: 1.2,
+              ease: "power2.out", immediateRender: false }, "page+=1.62")
+          .to({}, { duration: 0.16 });
       } else {
         // Native mobile/tablet scrolling: text remains static and scene changes
         // are discrete instead of tracking every pixel of a fast touch gesture.
@@ -112,6 +139,11 @@ export function CareerJourney() {
         showFrame(0, true);
         // Progress lines are static on touch devices to avoid rapid flickering.
         gsap.set(lines, { scaleX: 1, transformOrigin: "left" });
+        // A brief one-time appearance, no 3D scrub on touch devices.
+        gsap.fromTo("[data-manuscript]", { opacity: 0.88, y: 12 }, {
+          opacity: 1, y: 0, duration: 0.7, ease: "power2.out",
+          scrollTrigger: { trigger: "[data-manuscript]", start: "top 92%", once: true, markers },
+        });
         credits.forEach((credit, index) => {
           ScrollTrigger.create({
             id: `career-scene-${index + 1}`,
