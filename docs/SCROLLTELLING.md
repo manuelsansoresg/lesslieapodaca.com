@@ -50,3 +50,10 @@ Los cambios quedaron subidos a `main`. No se pudo descargar el repositorio desde
 - En flujo natural móvil/tablet, los tres fotogramas cambian por umbrales de ScrollTrigger con transiciones discretas de 0.5 s, sin scrub ligado a cada píxel del gesto; las líneas de progreso permanecen estables. El contenido literario utiliza una entrada breve sin pin.
 - Se conserva `prefers-reduced-motion` y el comportamiento desktop. Los recursos son locales y no se añaden paquetes.
 - Validación pendiente: el entorno de esta edición no tuvo acceso a clonar el repositorio para ejecutar `npm run typecheck` ni `npm run build`; tampoco se pudo comprobar físicamente Safari iPhone/Android ni el desplazamiento rápido/reverso. Es necesario ejecutar estas comprobaciones antes de aprobar la publicación.
+
+## Ajuste por revisión visual del recorrido
+
+- Se retira el mockup adicional del libro de la transición «De la escena a la página»: la portada ya tiene su presentación principal en «Mi novela» y vuelve a aparecer durante la compra, por lo que otra repetición debilitaba la narrativa visual.
+- El puente vuelve a utilizar exclusivamente máscaras, pliegues marfil y tipografía como transición editorial; se conserva el efecto GSAP de las hojas y el título.
+- Se conservan las transiciones discretas entre fotogramas en móvil y las mejoras de estabilidad táctil.
+- Las observaciones anteriores sobre el mockup se mantienen como historial, no como descripción del estado actual.
