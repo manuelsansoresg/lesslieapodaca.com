@@ -1,0 +1,61 @@
+/* Keep unillustrated credits compact; only show documentary photos when supplied. */
+.textProduction { grid-template-columns: 1fr; }
+.filmographyEntry { padding-bottom: 28px; }
+.literaryExcerpt blockquote { line-height: 1.35; }
+
+/* Atmospheric imagery belongs to the section, never to an individual credit. */
+.careerScene {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--color-brown);
+  color: var(--color-ivory);
+}
+.careerAtmosphere { position: absolute; inset: 0; z-index: -2; }
+.careerAtmosphere img { object-fit: cover; object-position: 30% center; }
+.careerScene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, #34210310, #211c19b3 52%, #211c19e6);
+  pointer-events: none;
+}
+.careerScene :global(.section-heading > p) { color: var(--color-champagne); }
+.careerComposition { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: end; }
+.atmosphereNote { max-width: 220px; font-size: 10px; letter-spacing: .08em; color: var(--color-champagne); padding-bottom: 30px; }
+.careerCredits > li { grid-template-columns: 64px 1fr; gap: 22px; border-color: #d5a14f55; padding-block: 30px; }
+.careerCredits :global(.timeline-year) { color: var(--color-gold); font-size: 30px; }
+.careerCredits :global(.production h3) { font-size: clamp(32px, 3.3vw, 46px); }
+.careerCredits :global(.production .eyebrow) { color: var(--color-champagne); }
+
+/* One documentary image: colour and monochrome exports share the same source. */
+.singleGallery { display: grid; grid-template-columns: .85fr 1.15fr; gap: 85px; align-items: center; }
+.singleGallery :global(.section-heading) { display: block; margin: 0; padding-block: 30px; border-top: 1px solid #34210330; }
+.singleGallery :global(.section-heading > p) { margin-top: 26px; max-width: 230px; }
+.singleGallery :global(.gallery-grid) { display: block; padding: 0 0 24px 24px; border-left: 1px solid #34210330; border-bottom: 1px solid #34210330; }
+.singleGallery :global(.gallery-item) { display: block; aspect-ratio: 674 / 900; max-width: 620px; }
+.singleGallery :global(.gallery-item img) { object-position: center; }
+.singleGallery :global(.gallery-item > span) { right: auto; font-size: 18px; }
+
+.literaryScene { position: relative; isolation: isolate; }
+.literaryTexture { object-fit: cover; pointer-events: none; z-index: -1; opacity: .48; mix-blend-mode: multiply; }
+@media (max-width: 1100px) {
+  .careerComposition { grid-template-columns: .5fr 1.5fr; gap: 35px; }
+  .singleGallery { gap: 45px; }
+}
+@media (max-width: 800px) {
+  .careerComposition { display: flex; flex-direction: column-reverse; align-items: stretch; gap: 22px; }
+  .careerCredits > li { grid-template-columns: 50px 1fr; gap: 16px; padding-block: 26px; }
+  .atmosphereNote { max-width: none; padding: 0; font-size: 9px; }
+  .careerAtmosphere img { object-position: 25% center; }
+  .careerScene::after { background: #211c1999; }
+  .singleGallery { grid-template-columns: 1fr; gap: 32px; }
+  .singleGallery :global(.section-heading) { padding-block: 0; border: 0; }
+  .singleGallery :global(.section-heading > p) { max-width: none; }
+  .singleGallery :global(.gallery-grid) { padding: 0 0 14px 14px; }
+  .singleGallery :global(.gallery-item) { margin: auto; }
+}
+@media (max-width: 380px) {
+  .careerCredits > li { grid-template-columns: 1fr; gap: 14px; }
+}

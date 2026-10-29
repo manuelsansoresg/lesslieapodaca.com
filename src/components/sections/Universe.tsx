@@ -1,44 +1,28 @@
+import { CTA } from "../CTA";
+import Image from "next/image";
+import styles from "./content.module.css";
 import { copy } from "@/lib/copy";
 import { bookHref, site } from "@/lib/content";
 export function Universe() {
   return (
     <section
-      className="universe-section section-space"
+      className={`universe-section section-space ${styles.literaryScene}`}
       aria-labelledby="universo-title"
     >
+      <Image className={styles.literaryTexture} src="/images/lesslie/fondos/textura-literaria-bugambilia.webp" alt="" fill sizes="100vw" aria-hidden="true" />
       <div className="section-wrap universe-inner">
         <p className="eyebrow">{copy.universe1}</p>
-        <h2 id="universo-title">
-          Todo lo que sientes
-          <br />
-          <em>también es una historia.</em>
-        </h2>
-        <p className="universe-description">
-          Romance juvenil, adolescencia y crecimiento personal.
-          <br />
-          Un lugar para explorar las emociones a través de las palabras.
-        </p>
-        <div className="universe-themes">
-          {site.book.themes.map((theme, i) => (
-            <span key={theme}>
-              <small>0{i + 1}</small>
-              {theme}
-            </span>
-          ))}
-        </div>
-        {site.book.excerpts.length > 0 ? (
-          site.book.excerpts.map((q) => (
-            <figure className="excerpt" key={q.text}>
-              <blockquote>{q.text}</blockquote>
-              <figcaption>{q.attribution}</figcaption>
-            </figure>
-          ))
-        ) : (
-          <p className="excerpt-pending">{copy.universe2}</p>
-        )}
-        <a className="button button-ivory" href={bookHref}>
-          Descubre la historia <span aria-hidden="true">↗</span>
-        </a>
+        <h2 id="universo-title">{copy.universeHeading}</h2>
+        <p className="universe-description">{copy.universeTransition}</p>
+        {site.book.excerpts.map((q) => (
+          <figure className={`excerpt ${styles.literaryExcerpt}`} key={q.text}>
+            <blockquote>{q.text}</blockquote>
+            <figcaption>{q.attribution}</figcaption>
+          </figure>
+        ))}
+        <CTA variant="primary" tone="ivory" className="button" href={bookHref}>
+          Descubre la historia
+        </CTA>
       </div>
     </section>
   );

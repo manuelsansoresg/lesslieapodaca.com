@@ -22,7 +22,7 @@ export function Press() {
                 </p>
                 <h3>
                   <a href={p.url} target="_blank" rel="noopener noreferrer">
-                    {p.title} ↗
+                    {p.title}
                   </a>
                 </h3>
               </article>

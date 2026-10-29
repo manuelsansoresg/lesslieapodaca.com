@@ -1,0 +1,380 @@
+{
+  "criterio": "Inventario por nombres y revisión visual; no acredita autoría, licencias ni procedencia técnica. No existía un mapa previo.",
+  "producciones_sin_material_oficial": [
+    "Como agua para chocolate",
+    "Cada minuto cuenta",
+    "Chespirito: Sin querer queriendo"
+  ],
+  "assets": [
+    {
+      "archivo": "autora/retrato-biografia.webp",
+      "dimensiones": [
+        674,
+        842
+      ],
+      "clasificacion": "Fotografía real de Lesslie con el libro; variantes de una misma toma",
+      "uso_preview": null,
+      "observacion": "Misma toma que 01-lesslie-libro-real; no repetir en galería."
+    },
+    {
+      "archivo": "autora/retrato-documental-bn.webp",
+      "dimensiones": [
+        674,
+        842
+      ],
+      "clasificacion": "Fotografía real de Lesslie con el libro; variantes de una misma toma",
+      "uso_preview": null,
+      "observacion": "Misma toma que 01-lesslie-libro-real; no repetir en galería."
+    },
+    {
+      "archivo": "autora/retrato-estudio-conceptual.png",
+      "dimensiones": [
+        1672,
+        941
+      ],
+      "clasificacion": "Composición conceptual; no documental ni atribuible a producciones",
+      "uso_preview": "Hero aprobado; sin modificaciones",
+      "observacion": null
+    },
+    {
+      "archivo": "autora/retrato-estudio-conceptualbk.webp",
+      "dimensiones": [
+        941,
+        941
+      ],
+      "clasificacion": "Composición conceptual; no documental ni atribuible a producciones",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "autora/retrato-oficial-iluminacion-pro.png",
+      "dimensiones": [
+        966,
+        1288
+      ],
+      "clasificacion": "Retrato oficial existente; conservar (sin auditoría de retoque original)",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "autora/retrato-oficial-iluminacion-pro.webp",
+      "dimensiones": [
+        966,
+        1288
+      ],
+      "clasificacion": "Retrato oficial existente; conservar (sin auditoría de retoque original)",
+      "uso_preview": "Mi historia; retrato oficial existente conservado",
+      "observacion": null
+    },
+    {
+      "archivo": "autora/retrato-original-corregido.webp",
+      "dimensiones": [
+        674,
+        900
+      ],
+      "clasificacion": "Fotografía real de Lesslie con el libro; variantes de una misma toma",
+      "uso_preview": null,
+      "observacion": "Misma toma que 01-lesslie-libro-real; no repetir en galería."
+    },
+    {
+      "archivo": "decoracion/linea-oro-transparente.png",
+      "dimensiones": [
+        1600,
+        140
+      ],
+      "clasificacion": "Recurso decorativo; no documental",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "fondos/atmósfera-cine-cafe.webp",
+      "dimensiones": [
+        1600,
+        900
+      ],
+      "clasificacion": "Recurso decorativo; no documental",
+      "uso_preview": "Trayectoria; fondo abstracto conceptual, separado de créditos",
+      "observacion": null
+    },
+    {
+      "archivo": "fondos/textura-editorial-marfil.webp",
+      "dimensiones": [
+        1600,
+        900
+      ],
+      "clasificacion": "Recurso decorativo; no documental",
+      "uso_preview": "Mi novela; textura decorativa",
+      "observacion": null
+    },
+    {
+      "archivo": "fondos/textura-literaria-bugambilia.webp",
+      "dimensiones": [
+        1600,
+        900
+      ],
+      "clasificacion": "Recurso decorativo; no documental",
+      "uso_preview": "Universo literario; textura decorativa",
+      "observacion": null
+    },
+    {
+      "archivo": "fondos/textura-literaria-coral.webp",
+      "dimensiones": [
+        1600,
+        900
+      ],
+      "clasificacion": "Recurso decorativo; no documental",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "galeria/01-lesslie-libro-real.webp",
+      "dimensiones": [
+        674,
+        900
+      ],
+      "clasificacion": "Fotografía real de Lesslie con el libro; variantes de una misma toma",
+      "uso_preview": "Galería; única toma documental distinta del retrato oficial",
+      "observacion": null
+    },
+    {
+      "archivo": "galeria/02-retrato-cine-conceptual.webp",
+      "dimensiones": [
+        706,
+        941
+      ],
+      "clasificacion": "Composición conceptual; no documental ni atribuible a producciones",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "galeria/03-set-conceptual.webp",
+      "dimensiones": [
+        750,
+        937
+      ],
+      "clasificacion": "Composición conceptual; no documental ni atribuible a producciones",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "galeria/04-retrato-blanco-negro-real.webp",
+      "dimensiones": [
+        674,
+        899
+      ],
+      "clasificacion": "Fotografía real de Lesslie con el libro; variantes de una misma toma",
+      "uso_preview": null,
+      "observacion": "Misma toma que 01-lesslie-libro-real; no repetir en galería."
+    },
+    {
+      "archivo": "galeria/05-actriz-en-estudio-conceptual.webp",
+      "dimensiones": [
+        750,
+        937
+      ],
+      "clasificacion": "Composición conceptual; no documental ni atribuible a producciones",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "hero/hero-alternativo-foto-real.webp",
+      "dimensiones": [
+        1800,
+        980
+      ],
+      "clasificacion": "Composición gráfica con variantes de la fotografía real con el libro; no es otra toma",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "hero/hero-cinematografico-desktop.webp",
+      "dimensiones": [
+        1672,
+        941
+      ],
+      "clasificacion": "Composición conceptual; no documental ni atribuible a producciones",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "hero/hero-cinematografico-mobile.webp",
+      "dimensiones": [
+        753,
+        941
+      ],
+      "clasificacion": "Composición conceptual; no documental ni atribuible a producciones",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "marca/logo-original-con-fondo.webp",
+      "dimensiones": [
+        1000,
+        826
+      ],
+      "clasificacion": "Recurso de marca",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "marca/logo-transparente-aproximado.png",
+      "dimensiones": [
+        411,
+        512
+      ],
+      "clasificacion": "Recurso de marca",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "novela/banner-portada-sin-texto.webp",
+      "dimensiones": [
+        1600,
+        900
+      ],
+      "clasificacion": "Recurso editorial del libro; portada/contraportada o composición de producto",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "novela/contraportada-original.webp",
+      "dimensiones": [
+        900,
+        1350
+      ],
+      "clasificacion": "Recurso editorial del libro; portada/contraportada o composición de producto",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "novela/libro-mockup-cafe.webp",
+      "dimensiones": [
+        1200,
+        900
+      ],
+      "clasificacion": "Recurso editorial del libro; portada/contraportada o composición de producto",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "novela/libro-mockup-marfil.webp",
+      "dimensiones": [
+        1200,
+        900
+      ],
+      "clasificacion": "Recurso editorial del libro; portada/contraportada o composición de producto",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "novela/portada-extraida-fotografia.webp",
+      "dimensiones": [
+        258,
+        386
+      ],
+      "clasificacion": "Recurso editorial del libro; portada/contraportada o composición de producto",
+      "uso_preview": "Mi novela y Compra; portada existente conservada",
+      "observacion": null
+    },
+    {
+      "archivo": "social/open-graph-lesslie.webp",
+      "dimensiones": [
+        1200,
+        630
+      ],
+      "clasificacion": "Composición gráfica con variantes de la fotografía real con el libro; no es otra toma",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "transicion/de-escena-a-pagina.webp",
+      "dimensiones": [
+        1600,
+        900
+      ],
+      "clasificacion": "Recurso conceptual/decorativo; no usar como evidencia de rodajes",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "transicion/manuscrito-cinematografico.webp",
+      "dimensiones": [
+        234,
+        157
+      ],
+      "clasificacion": "Recurso conceptual/decorativo; no usar como evidencia de rodajes",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "trayectoria/estudio-conceptual-vertical.webp",
+      "dimensiones": [
+        920,
+        1150
+      ],
+      "clasificacion": "Composición conceptual; no documental ni atribuible a producciones",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "trayectoria/retrato-en-set-conceptual.webp",
+      "dimensiones": [
+        1030,
+        824
+      ],
+      "clasificacion": "Composición conceptual; no documental ni atribuible a producciones",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "trayectoria/tira-cinematografica-foto-real.webp",
+      "dimensiones": [
+        1600,
+        660
+      ],
+      "clasificacion": "Composición gráfica con variantes de la fotografía real con el libro; no es otra toma",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "utileria/butacas-cine.webp",
+      "dimensiones": [
+        231,
+        136
+      ],
+      "clasificacion": "Recurso conceptual/decorativo; no usar como evidencia de rodajes",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "utileria/clapperboard-estetico.webp",
+      "dimensiones": [
+        280,
+        140
+      ],
+      "clasificacion": "Recurso conceptual/decorativo; no usar como evidencia de rodajes",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "utileria/manuscrito-detalle.webp",
+      "dimensiones": [
+        246,
+        135
+      ],
+      "clasificacion": "Recurso conceptual/decorativo; no usar como evidencia de rodajes",
+      "uso_preview": null,
+      "observacion": null
+    },
+    {
+      "archivo": "utileria/pelicula-fotografica.webp",
+      "dimensiones": [
+        340,
+        140
+      ],
+      "clasificacion": "Recurso conceptual/decorativo; no usar como evidencia de rodajes",
+      "uso_preview": null,
+      "observacion": null
+    }
+  ]
+}

@@ -1,9 +1,14 @@
+import Image from "next/image";
+import styles from "./content.module.css";
 import { copy } from "@/lib/copy";
 import { site } from "@/lib/content";
 import { EditorialImage } from "../EditorialImage";
 export function Career() {
   return (
-    <section id="trayectoria" className="career-section section-space">
+    <section id="trayectoria" className={`career-section section-space ${styles.careerScene}`}>
+      <div className={styles.careerAtmosphere} aria-hidden="true">
+        <Image src="/images/lesslie/fondos/atmósfera-cine-cafe.webp" alt="" fill sizes="100vw" />
+      </div>
       <div className="section-wrap">
         <div className="section-heading">
           <div>
@@ -16,28 +21,30 @@ export function Career() {
           </div>
           <p>{copy.career2}</p>
         </div>
-        <ol className="timeline">
+        <div className={styles.careerComposition}>
+          <p className={styles.atmosphereNote}>Atmósfera visual conceptual · Sin fotografías de producción</p>
+          <ol className={`timeline ${styles.careerCredits}`}>
           {site.productions.map((p) => (
-            <li key={p.title}>
-              <span className="timeline-year">{p.year}</span>
-              <article className="production">
-                <EditorialImage
+            <li key={p.title} className={styles.filmographyEntry}>
+              <span className="timeline-year" aria-hidden={!p.year || undefined}>{p.year}</span>
+              <article className={`production ${!p.image ? styles.textProduction : ""}`}>
+                {/* Solo vincular material oficial autorizado a cada producción. */}
+                {p.image && <EditorialImage
                   src={p.image}
-                  alt={"Lesslie como " + p.character + " en " + p.title}
+                  alt={"Participación de Lesslie Apodaca en " + p.title}
                   label="Fotografía de producción"
                   kind="landscape"
-                />
+                />}
                 <div>
-                  <p className="eyebrow">{copy.career3}</p>
+                  <p className="eyebrow">{p.platform || copy.career3}</p>
                   <h3>{p.title}</h3>
-                  <p>
-                    Personaje: <strong>{p.character}</strong>
-                  </p>
+                  {p.character && <p>Personaje: <strong>{p.character}</strong></p>}
                 </div>
               </article>
             </li>
           ))}
         </ol>
+        </div>
       </div>
     </section>
   );

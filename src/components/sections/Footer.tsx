@@ -1,3 +1,4 @@
+import { CTA } from "../CTA";
 import { copy } from "@/lib/copy";
 import { navigation, site } from "@/lib/content";
 import { Brand } from "../Brand";
@@ -17,20 +18,20 @@ export function Footer() {
           <div className="footer-contact">
             <p>{copy.footer2}</p>
             {site.contactEmail ? (
-              <a className="text-link" href={"mailto:" + site.contactEmail}>
-                {site.contactEmail} ↗
-              </a>
+              <CTA variant="text" tone="brown" className="text-link" href={"mailto:" + site.contactEmail}>
+                {site.contactEmail}
+              </CTA>
             ) : (
               <p className="muted">{copy.footer3}</p>
             )}
-            <a
-              className="text-link"
+            <CTA
+              variant="text" tone="brown" className="text-link"
               href={site.social.facebook}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Facebook <span aria-hidden="true">↗</span>
-            </a>
+              Facebook
+            </CTA>
           </div>
         </div>
         <div className="footer-bottom">

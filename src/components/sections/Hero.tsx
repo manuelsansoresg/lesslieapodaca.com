@@ -1,3 +1,4 @@
+import { CTA } from "../CTA";
 import { copy } from "@/lib/copy";
 import { site } from "@/lib/content";
 import { EditorialImage } from "../EditorialImage";
@@ -26,12 +27,12 @@ export function Hero() {
           Bienvenidos a mi universo, entre la actuación y las letras.
         </p>
         <div className="actions">
-          <a className="button button-dark" href="#mi-novela">
-            Descubre mi novela <span aria-hidden="true">↗</span>
-          </a>
-          <a className="text-link" href="#trayectoria">
-            Conoce mi trayectoria <span aria-hidden="true">↓</span>
-          </a>
+          <CTA variant="primary" tone="brown" className="button" href="#mi-novela">
+            Descubre mi novela
+          </CTA>
+          <CTA variant="text" tone="brown" className="text-link" href="#trayectoria">
+            Conoce mi trayectoria
+          </CTA>
         </div>
       </div>
       <div className="hero-art">

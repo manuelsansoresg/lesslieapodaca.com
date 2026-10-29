@@ -116,57 +116,7 @@ p + p {
   align-items: center;
   flex-wrap: wrap;
 }
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  min-height: 52px;
-  padding: 15px 24px;
-  font-size: 12px;
-  line-height: 1.5;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    transform 0.2s;
-}
-.button:hover {
-  transform: translateY(-2px);
-}
-.button span {
-  font-size: 19px;
-  line-height: 1;
-}
-.button-dark {
-  background: var(--color-brown);
-  color: var(--color-ivory);
-}
-.button-dark:hover {
-  background: #50350f;
-}
-.button-gold {
-  background: var(--color-gold);
-  color: var(--color-brown);
-}
-.button-gold:hover {
-  background: var(--color-champagne);
-}
-.button-ivory {
-  background: var(--color-ivory);
-  color: var(--color-brown);
-}
-.text-link {
-  display: inline-flex;
-  gap: 22px;
-  align-items: center;
-  font-size: 12px;
-  border-bottom: 1px solid currentColor;
-  padding-bottom: 6px;
-  line-height: 1.6;
-}
-.text-link:hover {
-  opacity: 0.75;
-}
+
 .brand-wordmark {
   font-family: var(--font-editorial);
   font-size: 31px;
@@ -325,14 +275,7 @@ p + p {
 .desktop-nav a:hover {
   color: #926018;
 }
-.header-cta {
-  font-size: 11px;
-  border: 1px solid #34210340;
-  padding: 10px 17px;
-  display: flex;
-  gap: 22px;
-  align-items: center;
-}
+
 .menu-button {
   display: none;
   background: none;
@@ -890,14 +833,6 @@ p + p {
 .purchase-details {
   margin-top: 18px;
 }
-.button-unavailable {
-  border: 1px solid #d5a14f75;
-  color: var(--color-champagne);
-  cursor: default;
-}
-.button-unavailable:hover {
-  transform: none;
-}
 .availability-note {
   font-size: 10px;
   margin-top: 12px;
@@ -1172,16 +1107,11 @@ p + p {
     width: 100%;
   }
   .mobile-purchase {
-    display: block;
+    display: inline-flex;
     position: fixed;
     bottom: 14px;
     right: 16px;
     z-index: 40;
-    padding: 12px 20px;
-    background: var(--color-gold);
-    color: var(--color-brown);
-    font-size: 12px;
-    box-shadow: 0 3px 20px #211c1933;
   }
 }
 @media (max-width: 480px) {

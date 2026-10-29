@@ -1,3 +1,6 @@
+import { CTA } from "./CTA";
+import { CinematicHeader } from "./cinematic/CinematicHeader";
+import { CinematicHero } from "./cinematic/CinematicHero";
 import { Brand } from "./Brand";
 import { Header } from "./Header";
 import { Hero } from "./sections/Hero";
@@ -10,12 +13,12 @@ import { Press } from "./sections/Press";
 import { Purchase } from "./sections/Purchase";
 import { Footer } from "./sections/Footer";
 import { site } from "@/lib/content";
-export function Landing() {
+export function Landing({ cinematic = false }: { cinematic?: boolean }) {
   return (
     <>
-      <Header brand={<Brand />} />
+      {cinematic ? <CinematicHeader /> : <Header brand={<Brand />} />}
       <main id="contenido">
-        <Hero />
+        {cinematic ? <CinematicHero /> : <Hero />}
         <Novel />
         <Story />
         <Career />
@@ -26,14 +29,14 @@ export function Landing() {
       </main>
       <Footer />
       {site.book.purchaseUrl && (
-        <a
-          className="mobile-purchase"
+        <CTA
+          variant="primary" tone="gold" className="mobile-purchase"
           href={site.book.purchaseUrl}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Comprar mi libro ↗
-        </a>
+          Comprar mi libro
+        </CTA>
       )}
     </>
   );

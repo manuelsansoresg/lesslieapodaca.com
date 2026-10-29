@@ -6,5 +6,5 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 export default function Preview() {
-  return <Landing />;
+  return <Landing cinematic />;
 }

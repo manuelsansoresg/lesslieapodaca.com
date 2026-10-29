@@ -1,4 +1,5 @@
 "use client";
+import { CTA } from "./CTA";
 import { useState, type ReactNode } from "react";
 import { navigation } from "@/lib/content";
 export function Header({ brand }: { brand: ReactNode }) {
@@ -20,9 +21,9 @@ export function Header({ brand }: { brand: ReactNode }) {
             </a>
           ))}
         </nav>
-        <a href="#mi-novela" className="header-cta">
-          Conoce mi novela <span aria-hidden="true">↗</span>
-        </a>
+        <CTA href="#mi-novela" variant="secondary" tone="brown" className="header-cta">
+          Conoce mi novela
+        </CTA>
         <button
           className="menu-button"
           aria-expanded={open}

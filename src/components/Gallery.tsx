@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import styles from "./sections/content.module.css";
 import type { GalleryImage } from "@/lib/content";
 export function Gallery({ images }: { images: GalleryImage[] }) {
   const [active, setActive] = useState<number | null>(null);
@@ -15,7 +16,7 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
     );
   }
   return (
-    <section id="galeria" className="section-wrap section-space">
+    <section id="galeria" className={`section-wrap section-space ${images.length === 1 ? styles.singleGallery : ""}`}>
       <div className="section-heading">
         <div>
           <p className="eyebrow">05 / Galería</p>
@@ -28,37 +29,22 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
         <p>Retratos, encuentros y vida en escena.</p>
       </div>
       <div className="gallery-grid">
-        {images.length
-          ? images.map((item, i) => (
-              <button
-                className="gallery-item"
-                key={item.src}
-                onClick={() => setActive(i)}
-                aria-label={"Ampliar: " + item.alt}
-              >
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  fill
-                  sizes="(max-width: 720px) 90vw, 33vw"
-                />
-                <span>{item.category} ↗</span>
-              </button>
-            ))
-          : ["Retratos", "Eventos y presentaciones", "En el rodaje"].map(
-              (label, i) => (
-                <div
-                  className={"gallery-placeholder gallery-tone-" + i}
-                  key={label}
-                >
-                  <span className="gallery-number">0{i + 1}</span>
-                  <span>
-                    {label}
-                    <small>Fotografías por incorporar</small>
-                  </span>
-                </div>
-              ),
-            )}
+        {images.map((item, i) => (
+          <button
+            className="gallery-item"
+            key={item.src}
+            onClick={() => setActive(i)}
+            aria-label={"Ampliar: " + item.alt}
+          >
+            <Image
+              src={item.src}
+              alt={item.alt}
+              fill
+              sizes="(max-width: 800px) calc(100vw - 44px), (max-width: 1100px) 50vw, 620px"
+            />
+            <span>{item.category}</span>
+          </button>
+        ))}
       </div>
       <dialog
         ref={dialog}

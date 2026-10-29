@@ -1,0 +1,89 @@
+.cta {
+  --cta-ink: var(--color-ivory);
+  --cta-paper: var(--color-brown);
+  --cta-hover: var(--color-charcoal);
+  --cta-focus: var(--color-brown);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  min-height: 52px;
+  max-width: 100%;
+  padding: 14px 26px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .045em;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease, box-shadow 220ms ease;
+}
+.gold {
+  --cta-ink: var(--color-brown);
+  --cta-paper: var(--color-gold);
+  --cta-hover: var(--color-champagne);
+  --cta-focus: var(--color-champagne);
+}
+.ivory {
+  --cta-ink: var(--color-brown);
+  --cta-paper: var(--color-ivory);
+  --cta-hover: var(--color-champagne);
+  --cta-focus: var(--color-champagne);
+}
+.primary { background: var(--cta-paper); color: var(--cta-ink); font-weight: 600; }
+/* A quiet inset rule recalls the framing of a book's title page. */
+.primary::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid currentColor;
+  opacity: .18;
+  border-radius: 1px;
+  pointer-events: none;
+}
+.secondary, .text { color: var(--cta-paper); background: transparent; }
+.secondary { border-color: color-mix(in srgb, var(--cta-paper) 55%, transparent); }
+.text { justify-content: flex-start; padding-inline: 0; border: 0; border-radius: 0; text-align: left; }
+.cta::after {
+  content: "";
+  position: absolute;
+  bottom: 9px;
+  left: 26px;
+  right: 26px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(.22);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+.text::after { left: 0; right: 0; }
+.cta.cta:focus-visible { outline: 2px solid var(--cta-focus); outline-offset: 5px; }
+@media (hover: hover) {
+  .primary:hover:not(:disabled) { background: var(--cta-hover); box-shadow: 0 3px 12px rgb(52 33 3 / .12); }
+  .secondary:hover { background: color-mix(in srgb, var(--cta-paper) 8%, transparent); border-color: var(--cta-paper); }
+  .cta:hover:not(:disabled)::after { transform: scaleX(1); }
+}
+.cta:focus-visible::after, .cta:active:not(:disabled)::after { transform: scaleX(1); }
+.cta:active:not(:disabled) { box-shadow: inset 0 0 0 1px currentColor; }
+.text:active { box-shadow: none; }
+.cta:disabled { background: transparent; color: var(--color-champagne); border-color: color-mix(in srgb, var(--color-gold) 55%, transparent); cursor: default; }
+.cta:disabled::before, .cta:disabled::after { display: none; }
+@media (max-width: 480px) {
+  .cta { padding-inline: 20px; min-height: 52px; font-size: 11px; letter-spacing: .025em; }
+  .cta::after { left: 20px; right: 20px; }
+  .text { padding-inline: 0; }
+  .text::after { left: 0; right: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta, .cta::after { transition: none; }
+}
+/* Keep the approved Hero action row comfortable on narrow screens. */
+@media (max-width: 480px) {
+  :global([data-actions]) > .cta { padding-inline: 10px; letter-spacing: .015em; }
+  :global([data-actions]) > .cta::after { left: 10px; right: 10px; }
+}

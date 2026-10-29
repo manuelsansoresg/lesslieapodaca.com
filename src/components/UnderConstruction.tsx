@@ -1,3 +1,4 @@
+import { CTA } from "./CTA";
 import { copy } from "@/lib/copy";
 import { Brand } from "./Brand";
 import { site } from "@/lib/content";
@@ -15,14 +16,14 @@ export function UnderConstruction() {
         </h1>
         <p className="construction-subtitle">{copy.underConstruction2}</p>
         <p className="construction-description">{copy.underConstruction3}</p>
-        <a
-          className="button button-gold"
+        <CTA
+          variant="primary" tone="gold" className="button"
           href={site.social.facebook}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Sígueme en Facebook <span aria-hidden="true">↗</span>
-        </a>
+          Sígueme en Facebook
+        </CTA>
       </main>
       <footer className="construction-footer">
         © Lesslie Apodaca. Todos los derechos reservados.

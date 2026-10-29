@@ -1,3 +1,4 @@
+import { CTA } from "../CTA";
 import { copy } from "@/lib/copy";
 import { site } from "@/lib/content";
 import { EditorialImage } from "../EditorialImage";
@@ -31,28 +32,28 @@ export function Purchase() {
             </p>
           )}
           {b.purchaseUrl ? (
-            <a
-              className="button button-gold"
+            <CTA
+              variant="primary" tone="gold" className="button"
               href={b.purchaseUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Comprar mi libro <span aria-hidden="true">↗</span>
-            </a>
+              Comprar mi libro
+            </CTA>
           ) : (
             <>
-              <span className="button button-unavailable" aria-disabled="true">
-                Comprar mi libro <span aria-hidden="true">↗</span>
-              </span>
+              <CTA tone="gold" className="button" unavailable>
+                Comprar mi libro
+              </CTA>
               <p className="availability-note">{copy.purchase2}</p>
-              <a
-                className="text-link"
+              <CTA
+                variant="text" tone="ivory" className="text-link"
                 href={site.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 {copy.purchase3}
-              </a>
+              </CTA>
             </>
           )}
         </div>

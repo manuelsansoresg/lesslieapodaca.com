@@ -1,10 +1,14 @@
+import { CTA } from "../CTA";
+import styles from "./content.module.css";
+import Image from "next/image";
 import { copy } from "@/lib/copy";
 import { bookHref, site } from "@/lib/content";
 import { EditorialImage } from "../EditorialImage";
 export function Novel() {
   const b = site.book;
   return (
-    <section id="mi-novela" className="novel-section">
+    <section id="mi-novela" className={`novel-section ${styles.literaryScene}`}>
+      <Image className={styles.literaryTexture} src="/images/lesslie/fondos/textura-editorial-marfil.webp" alt="" fill sizes="100vw" aria-hidden="true" />
       <div className="section-wrap novel-grid">
         <div className="book-stage">
           <span className="eyebrow">{copy.novel1}</span>
@@ -46,9 +50,9 @@ export function Novel() {
               <li key={t}>{t}</li>
             ))}
           </ul>
-          <a className="button button-dark" href={bookHref}>
-            Quiero leer esta historia <span aria-hidden="true">↗</span>
-          </a>
+          <CTA variant="primary" tone="brown" className="button" href={bookHref}>
+            Quiero leer esta historia
+          </CTA>
         </div>
       </div>
     </section>
