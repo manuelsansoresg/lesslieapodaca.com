@@ -36,7 +36,7 @@
 .singleGallery :global(.gallery-grid) { display: block; padding: 0 0 24px 24px; border-left: 1px solid #34210330; border-bottom: 1px solid #34210330; }
 .singleGallery :global(.gallery-item) { display: block; aspect-ratio: 674 / 900; max-width: 620px; }
 .singleGallery :global(.gallery-item img) { object-position: center; }
-.singleGallery :global(.gallery-item > .gallery-category) { right: auto; font-size: 18px; }
+.singleGallery :global(.gallery-item > .gallery-category) { right: auto; font-size: 18px; bottom: 64px; }
 
 .literaryScene { position: relative; isolation: isolate; }
 .literaryTexture { object-fit: cover; pointer-events: none; z-index: -1; opacity: .48; mix-blend-mode: multiply; }
