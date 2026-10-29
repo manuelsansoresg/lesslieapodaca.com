@@ -799,6 +799,79 @@ p + p {
   padding: 8px 18px;
   color: inherit;
 }
+
+/* Editorial gallery: an unmistakable, keyboard-accessible invitation to open. */
+.gallery-item {
+  cursor: zoom-in;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgb(52 33 3 / 0.10);
+  transition: box-shadow .35s ease;
+}
+.gallery-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgb(33 28 25 / .48));
+  pointer-events: none;
+  transition: background .35s ease;
+}
+.gallery-item:hover,
+.gallery-item:focus-visible {
+  box-shadow: 0 20px 45px rgb(52 33 3 / .19);
+}
+.gallery-item > .gallery-category {
+  z-index: 2;
+  right: auto;
+  left: 18px;
+  bottom: 18px;
+  max-width: calc(100% - 175px);
+  font-size: 17px;
+}
+.gallery-item > .gallery-open-hint {
+  position: absolute;
+  z-index: 2;
+  top: 16px;
+  right: 16px;
+  bottom: auto;
+  left: auto;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 13px 8px 8px;
+  border: 1px solid rgb(248 243 233 / .55);
+  border-radius: 999px;
+  background: rgb(33 28 25 / .78);
+  color: var(--color-ivory);
+  font: 600 10px/1.2 var(--font-body);
+  letter-spacing: .04em;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+}
+.gallery-open-icon {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: var(--color-charcoal);
+  font-size: 17px;
+  line-height: 1;
+  transition: transform .25s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .gallery-item:hover .gallery-open-icon,
+  .gallery-item:focus-visible .gallery-open-icon { transform: rotate(45deg); }
+}
+@media (max-width: 800px) {
+  .gallery-item > .gallery-open-hint { top: 12px; right: 12px; }
+  .gallery-item > .gallery-category { max-width: calc(100% - 36px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item, .gallery-item img, .gallery-open-icon { transition: none; }
+}
+
 /* Conversion and footer */
 .purchase-section {
   background: var(--color-brown);
