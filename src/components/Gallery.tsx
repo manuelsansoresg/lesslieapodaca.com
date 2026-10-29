@@ -66,8 +66,7 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
               sizes="(max-width: 800px) calc(100vw - 44px), (max-width: 1100px) 50vw, 620px"
             />
             <span className="gallery-category">{item.category}</span>
-            <span className="gallery-open-hint" aria-hidden="true"><span className="gallery-open-icon">↗</span><span>Ampliar imagen</span></span>
-            <span className="gallery-photo-action" aria-hidden="true"><span>VER FOTOGRAFÍA EN GRANDE</span><span className="gallery-action-arrow">↗</span></span>
+            <span className="gallery-open-label" aria-hidden="true">Ver fotografía en grande</span>
           </button>
         ))}
       </div>
