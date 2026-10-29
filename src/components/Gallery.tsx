@@ -1,9 +1,32 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import styles from "./sections/content.module.css";
 import type { GalleryImage } from "@/lib/content";
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
 export function Gallery({ images }: { images: GalleryImage[] }) {
+  const scope = useRef<HTMLElement>(null);
+  useGSAP(() => {
+    const media = gsap.matchMedia(scope);
+    media.add("(prefers-reduced-motion: no-preference)", () => {
+      const cards = gsap.utils.toArray<HTMLElement>(".gallery-item", scope.current!);
+      cards.forEach((card, index) => {
+        // Subtle, individually triggered reveal keeps lower rows visible on mobile.
+        gsap.fromTo(card,
+          { opacity: 0.84, y: 18 },
+          { opacity: 1, y: 0, duration: 0.8, delay: (index % 3) * 0.09,
+            ease: "power2.out", clearProps: "opacity,transform",
+            scrollTrigger: { trigger: card, start: "top 92%", once: true },
+          },
+        );
+      });
+    });
+    return () => media.revert();
+  }, { scope, dependencies: [images] });
   const [active, setActive] = useState<number | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
@@ -16,7 +39,7 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
     );
   }
   return (
-    <section id="galeria" className={`section-wrap section-space ${images.length === 1 ? styles.singleGallery : ""}`}>
+    <section ref={scope} id="galeria" className={`section-wrap section-space ${images.length === 1 ? styles.singleGallery : ""}`}>
       <div className="section-heading">
         <div>
           <p className="eyebrow">05 / Galería</p>
