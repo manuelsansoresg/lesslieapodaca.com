@@ -51,6 +51,8 @@ export function CareerJourney() {
         gsap.set("[data-page-art]", { opacity: 0.65 });
         gsap.set("[data-leaf]", { xPercent: -110, rotation: -14, transformOrigin: "0% 100%" });
         gsap.set("[data-bridge-copy]", { clipPath: "inset(0% 0% 100% 0%)", y: 34 });
+        gsap.set("[data-manuscript]", { autoAlpha: 0, y: 34, rotationY: -9, transformPerspective: 1100 });
+        gsap.set("[data-manuscript-sheet]", { transformOrigin: "15% 80%" });
         const sequence = gsap.timeline({
           defaults: { ease: "none" },
           scrollTrigger: {
@@ -80,6 +82,12 @@ export function CareerJourney() {
           .to("[data-rail-right]", { xPercent: 150, rotation: 12, duration: 0.7 }, "page")
           .to("[data-leaf]", { xPercent: 0, rotation: 0, duration: 0.95, stagger: 0.09, ease: "power2.inOut" }, "page+=0.18")
           .to("[data-bridge-copy]", { clipPath: "inset(0% 0% 0% 0%)", y: 0, duration: 0.65, ease: "power2.out" }, "page+=0.7")
+          .fromTo("[data-manuscript]", { autoAlpha: 0, y: 34, rotationY: -9 },
+            { autoAlpha: 1, y: 0, rotationY: 0, duration: 0.65, ease: "power2.out", immediateRender: false }, "page+=0.68")
+          .fromTo("[data-manuscript-sheet]", { y: 27, rotationY: -12, opacity: 0.65 },
+            { y: 0, rotationY: 0, opacity: 1, duration: 0.9, stagger: 0.12, ease: "power2.out", immediateRender: false }, "page+=0.76")
+          .to("[data-manuscript-sheet]:first-child", { x: -15, rotation: -11, rotationY: -6, duration: 0.7, ease: "power2.inOut" }, "page+=1.65")
+          .to("[data-manuscript-sheet]:last-child", { x: 17, rotation: 10, rotationY: 7, duration: 0.7, ease: "power2.inOut" }, "page+=1.65")
           .to("[data-page-art]", { opacity: 0.22, duration: 0.6 }, "page+=0.75")
           .to({}, { duration: 0.28 });
       } else {
@@ -170,10 +178,30 @@ export function CareerJourney() {
             <span data-leaf /><span data-leaf /><span data-leaf />
           </div>
           <div data-bridge-copy className={`section-wrap ${styles.bridgeCopy}`}>
-            <p className="eyebrow">Actriz · Escritora</p>
-            <h2>De la escena<br /><em>a la página.</em></h2>
-            <span className={styles.inkRule} aria-hidden="true" />
-            <p className={styles.bookTitle}>{site.book.title}</p>
+            <div className={styles.bridgeText}>
+              <p className="eyebrow">Actriz · Escritora</p>
+              <h2>De la escena<br /><em>a la página.</em></h2>
+              <span className={styles.inkRule} aria-hidden="true" />
+              <p className={styles.bookTitle}>{site.book.title}</p>
+            </div>
+            <figure data-manuscript className={styles.manuscript} aria-label="Composición editorial de hojas de manuscrito">
+              <div data-manuscript-sheet className={`${styles.sheet} ${styles.sheetBack}`} aria-hidden="true">
+                <span className={styles.sheetFolio}>Notas de escritura</span>
+                <span className={styles.typedLines} />
+              </div>
+              <div data-manuscript-sheet className={`${styles.sheet} ${styles.sheetMiddle}`} aria-hidden="true">
+                <span className={styles.sheetFolio}>Borrador · Ideas</span>
+                <span className={styles.typedLines} />
+              </div>
+              <div data-manuscript-sheet className={`${styles.sheet} ${styles.sheetFront}`} aria-hidden="true">
+                <span className={styles.sheetFolio}>El oficio de escribir</span>
+                <span className={styles.sheetHeading}>Una historia<br /><i>toma forma.</i></span>
+                <span className={styles.sheetRule} />
+                <span className={styles.sheetNotes}>Personajes · Memoria · Imaginación</span>
+                <span className={styles.typedLines} />
+                <span className={styles.sheetPage}>01</span>
+              </div>
+            </figure>
           </div>
         </div>
       </div>
