@@ -79,3 +79,7 @@ Los cambios quedaron subidos a `main`. No se pudo descargar el repositorio desde
 ## Sustitución definitiva por máscaras oscuras (29 de octubre de 2026)
 
 Las pruebas anteriores de hojas, manuscritos y polígono relativo al fotograma descritas arriba quedan sustituidas por dos máscaras oscuras que se separan desde el centro sobre un fondo marfil de escenario completo. Se conserva la timeline principal, sin otro pin. Implementación y validación visual actualizadas: [Transición escena a página](TRANSICION_ESCENA_PAGINA.md), con las cinco capturas obligatorias y comprobación móvil.
+
+## Ajuste final: fundido de atmósfera (29 de octubre de 2026)
+
+La apertura de máscaras descrita en la entrada anterior también queda sustituida. La versión vigente elimina las cortinas y funde el último fotograma mientras el propio escenario cambia de café a marfil. Reduce el recorrido de 3.8 a 2.8 alturas de ventana, conserva una pausa breve para el título y mantiene el único pin. No añade elementos decorativos. [Detalles y cinco estados visuales verificados](TRANSICION_ESCENA_PAGINA.md).

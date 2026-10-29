@@ -42,16 +42,17 @@ export function CareerJourney() {
         gsap.set(frames.slice(1), { clipPath: "inset(100% 0% 0% 0%)" });
         gsap.set(credits.slice(1), { color: "#e9d2af" });
         gsap.set(lines, { scaleX: 0, transformOrigin: "left" });
-        const masks = select("[data-curtain]");
-        const surface = select("[data-bridge-surface]");
-        gsap.set(masks, { autoAlpha: 0, xPercent: 0 });
-        gsap.set(surface, { autoAlpha: 0 });
-        gsap.set("[data-bridge-copy]", { autoAlpha: 0, y: 12 });
+        const stage = select("[data-stage]");
+        const film = select("[data-film-body]");
+        const palette = getComputedStyle(root);
+        gsap.set(stage, { backgroundColor: palette.getPropertyValue("--color-brown").trim() });
+        gsap.set(film, { autoAlpha: 1 });
+        gsap.set("[data-bridge-copy]", { autoAlpha: 0, y: 8 });
         const sequence = gsap.timeline({
           defaults: { ease: "none" },
           scrollTrigger: {
             id: "career-to-page", trigger: root, pin: select("[data-stage]")[0],
-            start: "top 112px", end: () => `+=${Math.round(window.innerHeight * 3.8)}`,
+            start: "top 112px", end: () => `+=${Math.round(window.innerHeight * 2.8)}`,
             scrub: 0.65, anticipatePin: 1, invalidateOnRefresh: true, markers,
           },
         });
@@ -66,17 +67,17 @@ export function CareerJourney() {
             .to(lines[index], { scaleX: 1, duration: 0.65 }, at)
             .to("[data-reel]", { yPercent: -index * 12, duration: 0.6 }, at);
         });
-        // Close the scene into darkness, then open two full-height curtains.
-        // Every state belongs to this scrubbed sequence, including reverse scroll.
-        sequence.addLabel("page", 2.65)
-          .to(masks, { autoAlpha: 1, duration: 0.4 }, "page")
-          .set(surface, { autoAlpha: 1 }, "page+=0.4")
-          .addLabel("opening", "page+=0.5")
-          .to("[data-curtain-left]", { xPercent: -100, duration: 1.5, ease: "power2.inOut" }, "opening")
-          .to("[data-curtain-right]", { xPercent: 100, duration: 1.5, ease: "power2.inOut" }, "opening")
-          .to("[data-bridge-copy]", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, "opening+=1.2")
+        // Dissolve the intact final frame as the stage itself changes atmosphere.
+        // No covering plane, spatial mask or empty dark interval between scenes.
+        sequence.addLabel("page", 2.45)
+          .to(stage, {
+            backgroundColor: palette.getPropertyValue("--color-ivory").trim(),
+            duration: 1, ease: "power1.inOut",
+          }, "page")
+          .to(film, { autoAlpha: 0, duration: 1, ease: "power1.inOut" }, "page")
+          .to("[data-bridge-copy]", { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out" }, "page+=0.82")
           .addLabel("reading")
-          .to({}, { duration: 0.65 });
+          .to({}, { duration: 0.35 });
       } else {
         // Native mobile/tablet scrolling: text remains static and scene changes
         // are discrete instead of tracking every pixel of a fast touch gesture.
@@ -167,8 +168,6 @@ export function CareerJourney() {
             <p className={styles.bookTitle}>{site.book.title}</p>
           </div>
         </div>
-        <div data-curtain data-curtain-left className={`${styles.curtain} ${styles.curtainLeft}`} aria-hidden="true" />
-        <div data-curtain data-curtain-right className={`${styles.curtain} ${styles.curtainRight}`} aria-hidden="true" />
       </div>
     </section>
   );

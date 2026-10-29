@@ -1,47 +1,60 @@
 # Transición «De la escena a la página»
 
-## Implementación vigente — 29 de octubre de 2026
+## Implementación vigente: fundido cinematográfico — 29 de octubre de 2026
 
-Se eliminó `paperMask`, el cálculo del polígono relativo al fotograma, sus dos interpolaciones de `clip-path`, el atributo `data-paper` y los estilos `.paper`. No quedan hojas, manuscritos, pliegues ni mockups animados en este puente. Los tres fotogramas, créditos y sus animaciones se conservan.
+Esta versión sustituye por completo las cortinas oscuras del intento anterior. Se eliminaron los dos nodos `data-curtain`, sus estilos y sus animaciones de opacidad/desplazamiento. No se añaden libros, hojas, manuscritos, tarjetas, iconos ni otros elementos decorativos. Los tres fotogramas, créditos y tipografía mantienen su contenido y diseño.
 
-La única timeline de escritorio sigue siendo `career-to-page`, con el mismo pin, inicio (`top 112px`), recorrido (3.8 alturas de ventana) y scrub (0.65). La nueva secuencia es:
+### Fondo y continuidad
 
-1. Tras estabilizarse el tercer fotograma, las dos máscaras oscuras ganan opacidad durante 0.4 unidades de timeline, fundiendo la escena a oscuridad.
-2. Con las máscaras opacas y cerradas, se hace visible el fondo marfil completo. Su superficie usa `position: absolute; inset: 0`, sin recortes, escalas, desplazamientos ni degradados de papel.
-3. Las máscaras cubren cada una la mitad del ancho y toda la altura del escenario. Se desplazan simultáneamente con `xPercent: -100 / 100` durante 1.5 unidades. La apertura central toca siempre ambos límites verticales del escenario.
-4. Al 80 % del tiempo de apertura (96.8 % de apertura espacial con `power2.inOut`), el bloque tipográfico aparece con `autoAlpha` y un desplazamiento vertical de solo 12 px.
-5. Se mantienen 0.65 unidades para lectura con el título completamente visible antes de liberar el pin. Estas unidades se distribuyen sobre el recorrido de scroll; no son segundos de espera obligatoria.
+El propio `[data-stage]` interpola `backgroundColor` de `--color-brown` a `--color-ivory`, mientras `[data-film-body]` baja su `autoAlpha` de 1 a 0 con el mismo inicio, duración y curva (`power1.inOut`). El último fotograma permanece completamente visible hasta el inicio del fundido. No hay una fase de cierre a oscuridad ni una espera café entre escenas.
 
-Todos los estados están dentro de la misma timeline y se revierten al subir: texto oculto y desplazado, máscaras cerradas, superficie invisible y recuperación del fotograma. Las máscaras no reciben eventos ni forman parte del árbol accesible. En el estado final se encuentran completamente fuera del escenario y su contenedor recorta cualquier desbordamiento.
+En escritorio, `.bridgeSurface` ocupa el escenario mediante `position: absolute; inset: 0` y su fondo es transparente. Sirve para colocar el texto, sin cubrir la trayectoria con un plano marfil. No usa recortes, escalas ni apertura espacial. El marfil final lo pinta el escenario completo, con altura disponible `100svh - 112px` bajo el encabezado.
 
-El escenario conserva la altura disponible bajo el encabezado: `100svh - 112px`. El marfil coincide exactamente con sus límites. Se conserva la unión de color existente hacia «Mi novela»; no se editan las otras secciones.
+### Ritmo y reversibilidad
 
-## Móvil y movimiento reducido
+Se conserva la única timeline `career-to-page`, el único pin, `start: top 112px`, `scrub: 0.65` y `invalidateOnRefresh`. El recorrido se reduce de 3.8 a 2.8 alturas de ventana (aproximadamente 26 % menos desplazamiento).
 
-En móvil/tablet y ventanas bajas se conserva el flujo natural, el degradado breve de oscuro a marfil y el título estático. Las máscaras tienen `display: none`; no hay pin ni scrub de transición ni animación tipográfica. Los cambios discretos de los tres fotogramas conservan su comportamiento previo.
+- Secuencia de los tres fotogramas: mismos tiempos y animaciones previos.
+- `page`, en 2.45: empieza el fundido de escenario y trayectoria, durante 1 unidad de timeline. La última línea termina de animarse en 2.35; el último fotograma no desaparece antes del fundido.
+- `page + 0.82`: entra el título con opacidad y 8 px de desplazamiento vertical, durante 0.45 unidades. En ese punto el fondo ha recorrido aproximadamente 93.5 % del cambio de color.
+- `reading`: 0.35 unidades con el título estable antes de liberar el pin. Duración total: 4.07 unidades.
 
-Con `prefers-reduced-motion: reduce`, la función retorna antes de crear animaciones o el pin. El título y el marfil se presentan en el flujo normal, sin estados ocultos de escritorio. Esta ruta se revisó en código; la herramienta de navegador disponible no ofrece emulación de esta preferencia y no se cambió la configuración del sistema del usuario.
+Las unidades anteriores se distribuyen sobre el recorrido de scroll; no son pausas obligatorias en segundos. En reversa, el título se oculta y vuelve a su desplazamiento inicial, la trayectoria recupera su opacidad/visibilidad y el fondo vuelve al café. No hay callbacks de salida que impongan estados irreversibles. Al terminar, el fondo es `rgb(248, 243, 233)`, la trayectoria tiene opacidad 0/visibilidad oculta y el título opacidad 1/transformación neutra.
+
+El espacio negativo derecho, la tipografía, los colores y la unión cromática existente con «Mi novela» se conservan. No se editaron otras secciones ni se añadieron dependencias.
+
+### Móvil, tablet y movimiento reducido
+
+Se conserva el flujo natural sin pin ni scrub del puente: degradado estático corto de café a marfil y texto sin transformaciones ni animaciones. Los cambios discretos existentes de fotogramas no se modifican. Al cambiar desde escritorio, `matchMedia` revierte el color de escenario y las opacidades antes de aplicar el modo natural.
+
+`prefers-reduced-motion: reduce` retorna antes de crear la timeline, el pin o los cambios de fotograma. El título y el marfil se muestran estáticos mediante los estilos base. Esta ruta se revisó en código; el navegador disponible no ofrece emulación de esa preferencia y no se cambió la configuración del sistema.
 
 ## Validación ejecutada
 
 - `npm run typecheck`: correcto.
-- `npm run build`: correcto (Next.js 16.4.3, compilación y generación estática).
-- Navegador local en `/preview`: escritorio 1440 × 900 y 1280 × 720; móvil 390 × 844.
-- Recorrido lento mediante pasos cortos, saltos rápidos y reversa en escritorio y móvil. En reversa se verificaron las máscaras al 50 % y después la superficie y el título ocultos con las máscaras transparentes sobre el último fotograma.
-- Un único `.pin-spacer` en escritorio; cero en móvil. Cambio de tamaño escritorio → móvil → escritorio sin pin residual. Sin desbordamiento horizontal en los tamaños comprobados.
-- Geometría de superficie y escenario idéntica: 1425 × 788 en escritorio 1440 × 900 y 1265 × 608 en escritorio 1280 × 720 (ancho útil excluyendo la barra de scroll).
-- Cinco estados capturados y examinados: sin rectángulos marfil flotantes, bordes interiores superiores/inferiores, solapamientos residuales, cortes de color en la salida ni huecos añadidos entre secciones. La apertura parcial muestra una franja marfil de altura completa, delimitada por las dos máscaras.
-- Consola: sin errores ni advertencias durante el recorrido revisado.
+- `npm run build`: correcto, incluida compilación, TypeScript y generación estática.
+- Navegador local en `/preview`, escritorio 1440 × 900 y 1280 × 720; móviles 390 × 844 y 360 × 800; tablet 820 × 1180.
+- Cinco estados examinados y capturados: último fotograma, inicio de fundido, mitad, título final y entrada a «Mi novela». Sin franja vertical, rectángulo superpuesto, pantalla café vacía intermedia ni huecos añadidos entre secciones.
+- En 1440 × 900, último fotograma en scroll 3121: opacidad 1 y fondo `rgb(52, 33, 3)`. Inicio en 3261: opacidad 0.9779. Mitad en 3505: opacidad 0.5017 y fondo uniforme `rgb(150, 138, 118)`. Título estable en 4000: fondo marfil final y transformación neutra.
+- Reversa rápida desde «Mi novela» hasta mitad del fundido: se recuperan los mismos valores de opacidad y color; después, trayectoria con opacidad 1 y fondo café. Recorrido lento en siete pasos cortos, salto rápido en escritorio compacto y scroll lento/rápido/reversa en móvil; recorrido y reversa en tablet.
+- Un `.pin-spacer` en escritorio y cero en móvil/tablet. Redimensionado escritorio → móvil → tablet → escritorio sin estados ocultos ni pins residuales.
+- Escenario y superficie con límites idénticos: 1425 × 788 y 1265 × 608 en los dos escritorios (ancho útil sin barra de scroll).
+- La entrada de «Mi novela» coincide con el borde inferior del escenario (505.17 px en la captura), sin separación artificial.
+- Sin desbordamiento horizontal en los cinco tamaños; título completo bajo el encabezado en los estados de lectura revisados. Consola sin errores ni advertencias.
 
-Las dimensiones móviles son una emulación de viewport; no se verificaron dispositivos físicos, gestos táctiles reales ni Safari iOS. Las capturas corresponden al servidor de desarrollo, no a un despliegue público.
+Los tamaños móviles/tablet simulan viewports, no dispositivos físicos: no se probaron motores Safari iOS/Chrome Android ni gestos táctiles reales. Las capturas provienen del servidor local de desarrollo. La emulación visual de movimiento reducido queda sin ejecutar; se comprobó su ruta estática en código.
 
-## Capturas
+## Evidencias actuales
 
-| Estado | Evidencia |
+| Estado | Captura |
 | --- | --- |
-| Último fotograma | [01 — Fotograma](scrollytelling/mascaras-01-fotograma.jpg) |
-| Inicio de apertura | [02 — Inicio](scrollytelling/mascaras-02-inicio.jpg) |
-| Apertura al 50 % | [03 — Mitad](scrollytelling/mascaras-03-mitad.jpg) |
-| Marfil completo y título | [04 — Título](scrollytelling/mascaras-04-titulo.jpg) |
-| Entrada a Mi novela | [05 — Novela](scrollytelling/mascaras-05-novela.jpg) |
-| Puente móvil estático | [Móvil](scrollytelling/mascaras-movil.jpg) |
+| Último fotograma | [01 — Fotograma](scrollytelling/fundido-01-fotograma.jpg) |
+| Inicio del fundido | [02 — Inicio](scrollytelling/fundido-02-inicio.jpg) |
+| Fundido al 50 % | [03 — Mitad](scrollytelling/fundido-03-mitad.jpg) |
+| Marfil completo y título | [04 — Título](scrollytelling/fundido-04-titulo.jpg) |
+| Entrada a Mi novela | [05 — Novela](scrollytelling/fundido-05-novela.jpg) |
+| Móvil 390 × 844 | [Móvil 390](scrollytelling/fundido-movil-390.jpg) |
+| Móvil 360 × 800 | [Móvil 360](scrollytelling/fundido-movil-360.jpg) |
+| Tablet 820 × 1180 | [Tablet](scrollytelling/fundido-tablet.jpg) |
+
+Las capturas `mascaras-*` corresponden al intento anterior y se conservan únicamente como registro histórico.
