@@ -1,13 +1,42 @@
+"use client";
+
+import { useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { CTA } from "../CTA";
 import styles from "./content.module.css";
 import Image from "next/image";
 import { copy } from "@/lib/copy";
 import { bookHref, site } from "@/lib/content";
 import { EditorialImage } from "../EditorialImage";
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
 export function Novel() {
+  const scope = useRef<HTMLElement>(null);
+  useGSAP(() => {
+    const media = gsap.matchMedia(scope);
+    media.add({ motion: "(prefers-reduced-motion: no-preference)", mobile: "(max-width: 800px)" }, (context) => {
+      if (!context.conditions?.motion) return;
+      const mobile = context.conditions.mobile;
+      // Translate the existing cover without changing its scale or aspect ratio.
+      gsap.fromTo(".book-stage .image-cover", { y: mobile ? 10 : 22, rotationX: mobile ? 0 : 2, transformPerspective: 1000 }, {
+        y: mobile ? -10 : -18, rotationX: 0, ease: "none", scrollTrigger: {
+          id: "novel-cover", trigger: scope.current, start: "top bottom", end: "bottom top", scrub: 0.5,
+        },
+      });
+      gsap.fromTo(".novel-copy h2", { y: 14, opacity: 0.75 }, {
+        y: 0, opacity: 1, duration: 0.6, ease: "power2.out", scrollTrigger: {
+          id: "novel-title", trigger: scope.current!.querySelector(".novel-copy"), start: "top 90%", once: true,
+        },
+      });
+    });
+    return () => media.revert();
+  }, { scope });
+
   const b = site.book;
   return (
-    <section id="mi-novela" className={`novel-section ${styles.literaryScene}`}>
+    <section ref={scope} id="mi-novela" className={`novel-section ${styles.literaryScene}`}>
       <Image className={styles.literaryTexture} src="/images/lesslie/fondos/textura-editorial-marfil.webp" alt="" fill sizes="100vw" aria-hidden="true" />
       <div className="section-wrap novel-grid">
         <div className="book-stage">

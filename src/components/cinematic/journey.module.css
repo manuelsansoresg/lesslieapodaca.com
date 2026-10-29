@@ -81,3 +81,14 @@
 }
 /* Keep each frame's caption inside its own masking and stacking context. */
 .frame { isolation: isolate; }
+
+/* A local sticky visual, with native scrolling and no ScrollTrigger pin/spacer. */
+@media (max-width: 1000px), (max-height: 699px) {
+  .journey[data-enhanced="natural"] .composition { grid-template-columns: 1fr; gap: 20px; }
+  .journey[data-enhanced="natural"] .window { height: clamp(180px, 28svh, 320px); }
+  .journey[data-enhanced="natural"] .visual { position: sticky; top: 120px; align-self: start; z-index: 5; background: var(--color-brown); padding-bottom: 12px; }
+}
+@media (max-width: 650px) {
+  .journey[data-enhanced="natural"] .visual { top: 98px; padding-bottom: 12px; }
+  .journey[data-enhanced="natural"] .window { height: clamp(180px, 28svh, 260px); }
+}

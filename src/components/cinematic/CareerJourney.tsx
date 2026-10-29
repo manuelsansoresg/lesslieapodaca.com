@@ -83,8 +83,18 @@ export function CareerJourney() {
           .to("[data-page-art]", { opacity: 0.22, duration: 0.6 }, "page+=0.75")
           .to({}, { duration: 0.28 });
       } else {
-        // Natural flow on phones, tablets and short windows. No pin or spacers.
+        // Native flow: keep the visual beside the credits, with reversible frame wipes.
+        root.dataset.enhanced = "natural";
+        gsap.set(frames.slice(1), { clipPath: "inset(100% 0% 0% 0%)" });
         credits.forEach((credit, index) => {
+          if (index > 0) {
+            gsap.fromTo(frames[index], { clipPath: "inset(100% 0% 0% 0%)" }, {
+              clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: {
+                id: `career-frame-${index + 1}`, trigger: credit,
+                start: "top 64%", end: "top 56%", scrub: 0.2, markers,
+              },
+            });
+          }
           gsap.fromTo(lines[index], { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: {
             id: `career-credit-${index + 1}`, trigger: credit, start: "top 80%", end: "bottom 45%", scrub: true, markers,
           } });
@@ -93,7 +103,9 @@ export function CareerJourney() {
           id: "page-natural", trigger: select("[data-paper]")[0], start: "top bottom", end: "bottom top", scrub: 0.5, markers,
         } });
       }
-      return () => { delete root.dataset.enhanced; };
+      // Re-measure after a breakpoint removes the desktop pin and changes the flow.
+      const refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
+      return () => { cancelAnimationFrame(refreshFrame); delete root.dataset.enhanced; };
     });
     // Font metrics can settle after hydration. Refresh once; never on scroll.
     let disposed = false;

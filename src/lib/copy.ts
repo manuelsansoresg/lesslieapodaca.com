@@ -14,7 +14,7 @@ export const copy = {
   purchase3: "Sigue las novedades en Facebook",
   universe1: "04 / El universo de mi novela",
   universeTransition: "Después de dar vida a tantos personajes, llegó el momento de crear los suyos.",
-  universeHeading: "De la escena a la página.",
+  universeHeading: "Entre estas páginas.",
   novel1: "Un universo por descubrir",
   novel2: "La primera novela de Lesslie Apodaca",
   novel3: "01 / Mi primera novela",
