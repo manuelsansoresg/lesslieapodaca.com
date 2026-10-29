@@ -42,3 +42,11 @@ Comprar mi libro continúa desactivado: purchaseUrl no tiene destino y todavía 
 ### Validación pendiente
 
 Los cambios quedaron subidos a `main`. No se pudo descargar el repositorio desde el entorno de ejecución (DNS de github.com no disponible), así que **no se han ejecutado nuevamente** `npm run typecheck`, `npm run build` ni pruebas de navegador sobre este commit. Verificar con una compilación local y Safari iPhone/Chrome Android: scroll lento, rápido, reversa, cambios de orientación y `prefers-reduced-motion`.
+
+
+## Ajustes de transición literaria y scroll móvil (29 de octubre de 2026)
+
+- Se incorpora el mockup existente `public/images/lesslie/novela/libro-mockup-marfil.webp` al puente «De la escena a la página»; la animación del libro está dentro de la timeline principal de escritorio, sin otro pin. Diseño de dos columnas en desktop y texto sobre libro en móvil.
+- En flujo natural móvil/tablet, los tres fotogramas cambian por umbrales de ScrollTrigger con transiciones discretas de 0.5 s, sin scrub ligado a cada píxel del gesto; las líneas de progreso permanecen estables. El contenido literario utiliza una entrada breve sin pin.
+- Se conserva `prefers-reduced-motion` y el comportamiento desktop. Los recursos son locales y no se añaden paquetes.
+- Validación pendiente: el entorno de esta edición no tuvo acceso a clonar el repositorio para ejecutar `npm run typecheck` ni `npm run build`; tampoco se pudo comprobar físicamente Safari iPhone/Android ni el desplazamiento rápido/reverso. Es necesario ejecutar estas comprobaciones antes de aprobar la publicación.
