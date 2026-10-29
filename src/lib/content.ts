@@ -15,7 +15,7 @@ export const site = {
     synopsis: "Crecer también es aprender a mirar el amor de otra manera.",
     description: "Acércate a sus páginas y descubre a los personajes que habitan esta historia.",
     shortSynopsis: "Tu próxima lectura empieza aquí.",
-    cover: "/images/lesslie/novela/portada-extraida-fotografia.webp",
+    cover: "/images/lesslie/novela/portada.png",
     purchaseUrl: null as string | null,
     price: null as string | null,
     format: null as string | null,

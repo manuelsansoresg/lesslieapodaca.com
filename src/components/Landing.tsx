@@ -6,10 +6,10 @@ import { Header } from "./Header";
 import { Hero } from "./sections/Hero";
 import { Novel } from "./sections/Novel";
 import { Story } from "./sections/Story";
+import { CareerJourney } from "./cinematic/CareerJourney";
 import { Career } from "./sections/Career";
 import { Universe } from "./sections/Universe";
 import { Gallery } from "./Gallery";
-import { Press } from "./sections/Press";
 import { Purchase } from "./sections/Purchase";
 import { Footer } from "./sections/Footer";
 import { site } from "@/lib/content";
@@ -19,12 +19,21 @@ export function Landing({ cinematic = false }: { cinematic?: boolean }) {
       {cinematic ? <CinematicHeader /> : <Header brand={<Brand />} />}
       <main id="contenido">
         {cinematic ? <CinematicHero /> : <Hero />}
-        <Novel />
-        <Story />
-        <Career />
+        {cinematic ? (
+          <>
+            <Story />
+            <CareerJourney />
+            <Novel />
+          </>
+        ) : (
+          <>
+            <Novel />
+            <Story />
+            <Career />
+          </>
+        )}
         <Universe />
         <Gallery images={site.gallery} />
-        <Press />
         <Purchase />
       </main>
       <Footer />

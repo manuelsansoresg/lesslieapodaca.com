@@ -18,7 +18,7 @@ export const copy = {
   novel1: "Un universo por descubrir",
   novel2: "La primera novela de Lesslie Apodaca",
   novel3: "01 / Mi primera novela",
-  footer1: "07 / Contacto",
+  footer1: "06 / Contacto",
   footer2: "Prensa y colaboraciones",
   footer3: "Contacto profesional por incorporar.",
   footer4: "© Lesslie Apodaca. Todos los derechos reservados.",

@@ -414,9 +414,13 @@ p + p {
   margin-top: 5px;
 }
 .image-cover {
-  aspect-ratio: 2/3;
+  aspect-ratio: 3/4;
   width: 100%;
-  box-shadow: 12px 16px 35px #34210320;
+  background: transparent;
+  filter: drop-shadow(12px 16px 20px #34210320);
+}
+.image-cover img {
+  object-fit: contain;
 }
 .image-cover .asset-placeholder {
   background: #a33a59;

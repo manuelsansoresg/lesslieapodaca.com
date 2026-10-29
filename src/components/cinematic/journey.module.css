@@ -1,0 +1,83 @@
+.journey { position: relative; background: var(--color-brown); color: var(--color-ivory); }
+.stage { position: relative; background: var(--color-brown); overflow: clip; isolation: isolate; }
+.filmBody { padding-block: 64px 36px; }
+.heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 36px; }
+.heading h2 { font-size: clamp(40px, 4vw, 60px); margin-top: 14px; }
+.heading > p { max-width: 300px; font-size: 12px; color: var(--color-champagne); }
+.heading .eyebrow { color: var(--color-gold); }
+.composition { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 90px); align-items: center; }
+.visual { margin: 0; min-width: 0; }
+.window { position: relative; height: clamp(280px, 37vh, 460px); overflow: hidden; background: var(--color-charcoal); }
+.frame { position: absolute; inset: 0; }
+.frame:not(:first-child) { clip-path: inset(100% 0 0); }
+.frame img { object-fit: cover; object-position: center 38%; }
+.frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, #34210366, transparent 50%); }
+.rail { position: absolute; top: 0; bottom: 0; width: 22px; z-index: 4; background: var(--color-charcoal); overflow: hidden; }
+.leftRail { left: 0; }.rightRail { right: 0; }
+.rail i { position: absolute; inset: -40% 7px; background: repeating-linear-gradient(180deg, transparent 0 13px, var(--color-champagne) 13px 22px, transparent 22px 35px); opacity: .6; }
+.visual figcaption { margin-top: 12px; color: var(--color-champagne); font-size: 9px; line-height: 1.6; letter-spacing: .06em; }
+.credits { margin: 0; padding: 0; list-style: none; min-width: 0; }
+.credit { position: relative; display: grid; grid-template-columns: 25px 1fr; gap: 18px; padding: 22px 12px 22px 0; border-bottom: 1px solid #e9d2af30; }
+.number { color: var(--color-gold); font-size: 10px; padding-top: 5px; }
+.credit h3 { font-size: clamp(28px, 2.8vw, 42px); margin-top: 8px; line-height: 1.06; }
+.credit .eyebrow { font-size: 9px; color: var(--color-gold); }
+.character { font-size: 11px; margin-top: 10px; }
+.creditLine { position: absolute; bottom: -1px; left: 0; right: 0; height: 1px; background: var(--color-gold); transform-origin: left; }
+.direction { display: flex; justify-content: space-between; font-size: 8px; text-transform: uppercase; letter-spacing: .19em; color: var(--color-champagne); padding-top: 24px; }
+.direction span { font-size: 19px; line-height: 1; }
+.paper { position: relative; min-height: 620px; display: flex; align-items: center; background: var(--color-ivory); color: var(--color-brown); isolation: isolate; overflow: clip; }
+.pageArt { z-index: -2; object-fit: cover; opacity: .22; }
+.leaves { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.leaves span { position: absolute; inset: 0; background: linear-gradient(110deg, transparent, #f8f3e9dc 45%); border-left: 1px solid #d5a14f44; }
+.leaves span:nth-child(1) { left: 42%; }.leaves span:nth-child(2) { left: 47%; }.leaves span:nth-child(3) { left: 52%; }
+.bridgeCopy { position: relative; padding-block: 90px; }
+.bridgeCopy .eyebrow { color: var(--color-bougainvillea); }
+.bridgeCopy h2 { font-size: clamp(64px, 7.5vw, 112px); margin-top: 24px; line-height: .95; }
+.bridgeCopy h2 em { color: var(--color-bougainvillea); }
+.inkRule { display: block; width: 72px; height: 1px; background: var(--color-bougainvillea); margin-block: 30px; }
+.bookTitle { font-size: 20px; font-family: var(--font-editorial); }
+.journey[data-enhanced="desktop"] .stage { height: calc(100svh - 112px); min-height: 588px; }
+.journey[data-enhanced="desktop"] .filmBody { height: 100%; display: flex; flex-direction: column; justify-content: center; padding-block: 28px 24px; }
+.journey[data-enhanced="desktop"] .heading { margin-bottom: 24px; }
+.journey[data-enhanced="desktop"] .paper { position: absolute; inset: 0; z-index: 6; min-height: 0; pointer-events: none; }
+@media (max-width: 1000px), (max-height: 699px) {
+  .filmBody { padding-block: 65px 35px; }
+  .heading { align-items: flex-start; }
+  .heading > p { max-width: 240px; }
+  .composition { gap: 30px; }
+  .credit { padding-block: 24px; }
+  .credit h3 { font-size: 30px; }
+  .window { height: 390px; }
+  .paper { min-height: 520px; }
+}
+@media (max-width: 650px) {
+  .heading { display: block; }
+  .heading > p { max-width: 330px; margin-top: 22px; }
+  .composition { grid-template-columns: 1fr; gap: 20px; }
+  .window { height: 320px; }
+  .credit { padding-block: 26px; }
+  .credit h3 { font-size: 34px; }
+  .paper { min-height: 480px; }
+  .bridgeCopy { padding-block: 80px; }
+  .bridgeCopy h2 { font-size: clamp(55px, 12vw, 78px); }
+  .leaves span:nth-child(1) { left: 65%; }.leaves span:nth-child(2) { left: 75%; }.leaves span:nth-child(3) { left: 85%; }
+}
+/* Carry the existing ivory into the original novel surface, without a seam. */
+.pageArt { mask-image: linear-gradient(#000 65%, transparent 100%); }
+.leaves { mask-image: linear-gradient(#000 65%, transparent 100%); }
+.journey + :global(.novel-section) { background: linear-gradient(var(--color-ivory), #efe5d6 220px); }
+.journey + :global(.novel-section) > img { mask-image: linear-gradient(transparent, #000 220px); }
+.frameCredit { position: absolute; z-index: 2; bottom: 22px; left: 38px; right: 38px; font-family: var(--font-editorial); font-size: clamp(22px, 2.2vw, 32px); line-height: 1.05; color: var(--color-ivory); text-shadow: 0 1px 16px var(--color-charcoal); }
+.frameCredit small { display: block; font-family: var(--font-body); font-size: 8px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; }
+.frame::after { background: linear-gradient(0deg, #211c19e6, #34210322 50%, transparent 70%); }
+@media (min-width: 1001px) and (min-height: 700px) and (max-height: 800px) {
+  .journey[data-enhanced="desktop"] .filmBody { padding-block: 20px; }
+  .journey[data-enhanced="desktop"] .heading { margin-bottom: 18px; }
+  .journey[data-enhanced="desktop"] .heading h2 { font-size: 34px; margin-top: 8px; }
+  .journey[data-enhanced="desktop"] .window { height: 260px; }
+  .journey[data-enhanced="desktop"] .credit { padding-block: 14px; }
+  .journey[data-enhanced="desktop"] .credit h3 { font-size: 28px; }
+  .journey[data-enhanced="desktop"] .direction { padding-top: 14px; }
+}
+/* Keep each frame's caption inside its own masking and stacking context. */
+.frame { isolation: isolate; }
