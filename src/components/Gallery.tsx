@@ -66,7 +66,8 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
               sizes="(max-width: 800px) calc(100vw - 44px), (max-width: 1100px) 50vw, 620px"
             />
             <span className="gallery-category">{item.category}</span>
-            <span className="gallery-open-hint" aria-hidden="true"><span className="gallery-open-icon">↗</span><span>Ver fotografía</span></span>
+            <span className="gallery-open-hint" aria-hidden="true"><span className="gallery-open-icon">↗</span><span>Ampliar imagen</span></span>
+            <span className="gallery-photo-action" aria-hidden="true"><span>VER FOTOGRAFÍA EN GRANDE</span><span className="gallery-action-arrow">↗</span></span>
           </button>
         ))}
       </div>
@@ -102,15 +103,15 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
               />
             </div>
             <div className="lightbox-controls">
-              <button onClick={() => move(-1)} aria-label="Fotografía anterior">
+              {images.length > 1 && <button onClick={() => move(-1)} aria-label="Fotografía anterior">
                 ←
-              </button>
+              </button>}
               <p>
                 {images[active].alt} · {active + 1} / {images.length}
               </p>
-              <button onClick={() => move(1)} aria-label="Fotografía siguiente">
+              {images.length > 1 && <button onClick={() => move(1)} aria-label="Fotografía siguiente">
                 →
-              </button>
+              </button>}
             </div>
           </div>
         )}
