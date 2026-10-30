@@ -8,13 +8,49 @@
 .composition { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 90px); align-items: center; }
 .visual { margin: 0; min-width: 0; }
 .window { position: relative; height: clamp(280px, 37vh, 460px); overflow: hidden; background: var(--color-charcoal); }
-.frame { position: absolute; inset: 0; overflow: hidden; }
+.frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  isolation: isolate;
+}
 .frame:not(:first-child) { clip-path: inset(100% 0 0); }
-/* Cada SVG horizontal conserva íntegro el retrato original al centro.
-   Sus bordes se prolongan mediante una reflexión del propio fondo del estudio:
-   sin franjas artificiales, sin recrear rostro ni ropa, sin uniones de distinto tono. */
-.portraitCanvas { position: absolute; inset: 0; isolation: isolate; }
-.framePortrait { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+/* Cinematic photo background: it fills the entire film frame. */
+.frameBackdrop {
+  object-fit: cover;
+  object-position: center 38%;
+  filter: blur(10px) brightness(.55) saturate(.8);
+  transform: scale(1.07);
+}
+
+/* The studio portrait is authentic and untouched; only the display
+   layer softly fades the four outer edges into the cinematic atmosphere. */
+.frameShade {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(0deg, rgb(33 28 25 / .45), transparent 48%),
+    linear-gradient(90deg, rgb(33 28 25 / .27), transparent 28%, transparent 72%, rgb(33 28 25 / .27));
+}
+.portraitCanvas {
+  position: absolute;
+  z-index: 2;
+  inset-block: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(54%, 345px);
+  -webkit-mask-image: radial-gradient(ellipse 72% 77% at 50% 48%, #000 60%, rgb(0 0 0 / .9) 75%, transparent 100%);
+  mask-image: radial-gradient(ellipse 72% 77% at 50% 48%, #000 60%, rgb(0 0 0 / .9) 75%, transparent 100%);
+}
+.framePortrait { object-fit: contain; object-position: center; }
+@media (max-width: 1000px), (max-height: 699px) {
+  .portraitCanvas { width: min(54%, 285px); }
+}
+@media (max-width: 650px) {
+  .portraitCanvas { width: min(64%, 260px); }
+}
 .frame::after { content: ''; position: absolute; z-index: 2; inset: 0; pointer-events: none; background: linear-gradient(0deg, #34210366, transparent 50%); }
 .rail { position: absolute; top: 0; bottom: 0; width: 22px; z-index: 4; background: var(--color-charcoal); overflow: hidden; }
 .leftRail { left: 0; }.rightRail { right: 0; }

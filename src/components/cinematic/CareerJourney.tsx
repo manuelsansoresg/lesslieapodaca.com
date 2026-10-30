@@ -11,12 +11,17 @@ import styles from "./journey.module.css";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-// Original photographs supplied for the trajectory sequence.
-// Keep their repository filenames (including spaces) unchanged.
-const compositions = [
-  "/images/lesslie/trayectoria/lesslie-trayectoria-1-horizontal.svg",
-  "/images/lesslie/trayectoria/lesslie-trayectoria-2-horizontal.svg",
-  "/images/lesslie/trayectoria/lesslie-trayectoria-3-horizontal.svg",
+// Cinematic atmosphere behind Lesslie's original, unedited photographs.
+const backgroundCompositions = [
+  "/images/lesslie/trayectoria/tira-cinematografica-foto-real.webp",
+  "/images/lesslie/trayectoria/retrato-en-set-conceptual.webp",
+  "/images/lesslie/trayectoria/estudio-conceptual-vertical.webp",
+];
+
+const portraits = [
+  "/images/lesslie/trayectoria/lesslie trayectoria 1.jpeg",
+  "/images/lesslie/trayectoria/lesslie trayectoria 2.jpeg",
+  "/images/lesslie/trayectoria/lesslie trayectoria 3.jpeg",
 ];
 
 export function CareerJourney() {
@@ -134,12 +139,29 @@ export function CareerJourney() {
           <div className={styles.composition}>
             <figure className={styles.visual}>
               <div className={styles.window}>
-                {compositions.map((src, index) => (
+                {portraits.map((src, index) => (
                   <div key={src} data-frame className={styles.frame} aria-hidden="true">
+                    <Image
+                      src={backgroundCompositions[index]}
+                      alt=""
+                      fill
+                      className={styles.frameBackdrop}
+                      sizes="(min-width: 1001px) 44vw, 90vw"
+                    />
+                    <div className={styles.frameShade} aria-hidden="true" />
                     <div className={styles.portraitCanvas}>
-                      <Image src={src} alt="" fill className={styles.framePortrait} sizes="(min-width: 1001px) 44vw, 90vw" unoptimized />
+                      <Image
+                        src={src}
+                        alt=""
+                        fill
+                        className={styles.framePortrait}
+                        sizes="(min-width: 1001px) 25vw, (min-width: 651px) 35vw, 55vw"
+                      />
                     </div>
-                    <span className={styles.frameCredit}><small>0{index + 1} / 03 · Trayectoria</small>{site.productions[index].title}</span>
+                    <span className={styles.frameCredit}>
+                      <small>0{index + 1} / 03 · Trayectoria</small>
+                      {site.productions[index].title}
+                    </span>
                   </div>
                 ))}
                 <div data-rail-left className={`${styles.rail} ${styles.leftRail}`} aria-hidden="true"><i data-reel /></div>
