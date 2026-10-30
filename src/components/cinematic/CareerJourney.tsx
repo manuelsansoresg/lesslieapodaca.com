@@ -11,13 +11,7 @@ import styles from "./journey.module.css";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-// Cinematic atmosphere behind Lesslie's original, unedited photographs.
-const backgroundCompositions = [
-  "/images/lesslie/trayectoria/tira-cinematografica-foto-real.webp",
-  "/images/lesslie/trayectoria/retrato-en-set-conceptual.webp",
-  "/images/lesslie/trayectoria/estudio-conceptual-vertical.webp",
-];
-
+// Each original photograph fills the frame, including its own studio background.
 const portraits = [
   "/images/lesslie/trayectoria/lesslie trayectoria 1.jpeg",
   "/images/lesslie/trayectoria/lesslie trayectoria 2.jpeg",
@@ -142,22 +136,13 @@ export function CareerJourney() {
                 {portraits.map((src, index) => (
                   <div key={src} data-frame className={styles.frame} aria-hidden="true">
                     <Image
-                      src={backgroundCompositions[index]}
+                      src={src}
                       alt=""
                       fill
-                      className={styles.frameBackdrop}
+                      loading="eager"
+                      className={styles.framePortrait}
                       sizes="(min-width: 1001px) 44vw, 90vw"
                     />
-                    <div className={styles.frameShade} aria-hidden="true" />
-                    <div className={styles.portraitCanvas}>
-                      <Image
-                        src={src}
-                        alt=""
-                        fill
-                        className={styles.framePortrait}
-                        sizes="(min-width: 1001px) 25vw, (min-width: 651px) 35vw, 55vw"
-                      />
-                    </div>
                     <span className={styles.frameCredit}>
                       <small>0{index + 1} / 03 · Trayectoria</small>
                       {site.productions[index].title}

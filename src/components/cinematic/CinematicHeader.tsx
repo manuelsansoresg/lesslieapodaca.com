@@ -1,7 +1,9 @@
 "use client";
 
 import { CTA } from "../CTA";
-import Image from "next/image";
+import { Brand } from "../Brand";
+import { SocialLinks } from "../SocialLinks";
+import { site } from "@/lib/content";
 import { useEffect, useRef, useState } from "react";
 import styles from "./cinematic.module.css";
 
@@ -44,7 +46,7 @@ export function CinematicHeader() {
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
       <div className={styles.headerInner}>
         <a href="#inicio" className={styles.logo} aria-label="Lesslie Apodaca, inicio">
-          <Image src="/images/logo.png" alt="Lesslie Apodaca" width={1374} height={1145} sizes="(max-width: 800px) 88px, 120px" priority />
+          <Brand />
         </a>
         <nav className={styles.desktopNav} aria-label="Navegación principal">
           {navigation.map(({ label, id }) => <a key={id} href={`#${id}`} aria-current={active === id ? "location" : undefined}>{label}</a>)}
@@ -56,6 +58,8 @@ export function CinematicHeader() {
         <div className={styles.menuTop}><span>Lesslie Apodaca</span><button onClick={close} autoFocus aria-label="Cerrar menú">Cerrar <span aria-hidden="true">×</span></button></div>
         <nav aria-label="Navegación móvil">{navigation.map(({ label, id }, index) => <a key={id} href={`#${id}`} onClick={close} aria-current={active === id ? "location" : undefined}><small aria-hidden="true">0{index + 1}</small>{label}</a>)}</nav>
         <CTA tone="gold" href="#mi-novela" onClick={close}>Descubre mi novela</CTA>
+        <CTA variant="text" tone="ivory" href={`mailto:${site.contactEmail}`} onClick={close}>Escríbeme por correo</CTA>
+        <SocialLinks tone="ivory" />
         <p className={styles.menuNote}>Actriz · Escritora</p>
       </dialog>
       <noscript><nav className={styles.fallbackNav} aria-label="Navegación">{navigation.map(({ label, id }) => <a key={id} href={`#${id}`}>{label}</a>)}</nav></noscript>

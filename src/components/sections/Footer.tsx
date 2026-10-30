@@ -2,6 +2,7 @@ import { CTA } from "../CTA";
 import { copy } from "@/lib/copy";
 import { navigation, site } from "@/lib/content";
 import { Brand } from "../Brand";
+import { SocialLinks } from "../SocialLinks";
 export function Footer() {
   return (
     <footer id="contacto" className="site-footer">
@@ -17,21 +18,13 @@ export function Footer() {
           </div>
           <div className="footer-contact">
             <p>{copy.footer2}</p>
-            {site.contactEmail ? (
-              <CTA variant="text" tone="brown" className="text-link" href={"mailto:" + site.contactEmail}>
-                {site.contactEmail}
-              </CTA>
-            ) : (
-              <p className="muted">{copy.footer3}</p>
-            )}
-            <CTA
-              variant="text" tone="brown" className="text-link"
-              href={site.social.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Facebook
+            <CTA href={`mailto:${site.contactEmail}`}>
+              Escríbeme por correo
             </CTA>
+            <CTA variant="text" tone="brown" className="text-link" href={`mailto:${site.contactEmail}`}>
+              {site.contactEmail}
+            </CTA>
+            <SocialLinks />
           </div>
         </div>
         <div className="footer-bottom">

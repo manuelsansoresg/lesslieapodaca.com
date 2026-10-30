@@ -3,8 +3,11 @@ export const site = {
   name: "Lesslie Apodaca",
   description:
     "El espacio oficial de Lesslie Apodaca, actriz y escritora mexicana. Trayectoria artística y universo literario.",
-  social: { facebook: "https://www.facebook.com/SoyLesslieApodaca" },
-  contactEmail: null as string | null,
+  social: {
+    facebook: "https://www.facebook.com/SoyLesslieApodaca",
+    instagram: "https://www.instagram.com/lesslie.apodaca/",
+  },
+  contactEmail: "lesslie.apodaca@outlook.com",
   assets: { portrait: null as string | null, biography: "/images/lesslie/autora/retrato-oficial-iluminacion-pro.webp" },
   biography: [
     "Lesslie Apodaca es actriz, abogada y escritora mexicana. Su recorrido artístico comenzó en la infancia y se ha desarrollado en teatro, televisión, series y cine.",

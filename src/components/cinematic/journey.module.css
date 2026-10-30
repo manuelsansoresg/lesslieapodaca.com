@@ -16,42 +16,26 @@
 }
 .frame:not(:first-child) { clip-path: inset(100% 0 0); }
 
-/* Cinematic photo background: it fills the entire film frame. */
-.frameBackdrop {
+/* One intact photograph, uniformly scaled to fill the entire frame.
+   The upper crop keeps the head inside the horizontal composition. */
+.framePortrait {
   object-fit: cover;
-  object-position: center 38%;
-  filter: blur(10px) brightness(.55) saturate(.8);
-  transform: scale(1.07);
+  object-position: center 6%;
 }
-
-/* The studio portrait is authentic and untouched; only the display
-   layer softly fades the four outer edges into the cinematic atmosphere. */
-.frameShade {
+.frame:first-child .framePortrait { object-position: center 16%; }
+.frame:nth-child(3) .framePortrait { object-position: center 12%; }
+.frame::after {
+  content: "";
   position: absolute;
   z-index: 1;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(0deg, rgb(33 28 25 / .45), transparent 48%),
-    linear-gradient(90deg, rgb(33 28 25 / .27), transparent 28%, transparent 72%, rgb(33 28 25 / .27));
+  background: linear-gradient(0deg, rgb(33 28 25 / .7), transparent 45%);
 }
-.portraitCanvas {
-  position: absolute;
-  z-index: 2;
-  inset-block: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(54%, 345px);
-  -webkit-mask-image: radial-gradient(ellipse 72% 77% at 50% 48%, #000 60%, rgb(0 0 0 / .9) 75%, transparent 100%);
-  mask-image: radial-gradient(ellipse 72% 77% at 50% 48%, #000 60%, rgb(0 0 0 / .9) 75%, transparent 100%);
+@media (min-width: 651px) and (max-width: 1000px) {
+  .frame:first-child .framePortrait { object-position: center 12%; }
+  .frame:nth-child(3) .framePortrait { object-position: center 8%; }
 }
-.framePortrait { object-fit: contain; object-position: center; }
-@media (max-width: 1000px), (max-height: 699px) {
-  .portraitCanvas { width: min(54%, 285px); }
-}
-@media (max-width: 650px) {
-  .portraitCanvas { width: min(64%, 260px); }
-}
-.frame::after { content: ''; position: absolute; z-index: 2; inset: 0; pointer-events: none; background: linear-gradient(0deg, #34210366, transparent 50%); }
 .rail { position: absolute; top: 0; bottom: 0; width: 22px; z-index: 4; background: var(--color-charcoal); overflow: hidden; }
 .leftRail { left: 0; }.rightRail { right: 0; }
 .rail i { position: absolute; inset: -40% 7px; background: repeating-linear-gradient(180deg, transparent 0 13px, var(--color-champagne) 13px 22px, transparent 22px 35px); opacity: .6; }
@@ -103,7 +87,6 @@
 .journey + :global(.novel-section) > img { mask-image: linear-gradient(transparent, #000 220px); }
 .frameCredit { position: absolute; z-index: 3; bottom: 22px; left: 38px; right: 38px; font-family: var(--font-editorial); font-size: clamp(22px, 2.2vw, 32px); line-height: 1.05; color: var(--color-ivory); text-shadow: 0 1px 16px var(--color-charcoal); }
 .frameCredit small { display: block; font-family: var(--font-body); font-size: 8px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; }
-.frame::after { background: linear-gradient(0deg, #211c19e6, #34210322 50%, transparent 70%); }
 @media (min-width: 1001px) and (min-height: 700px) and (max-height: 800px) {
   .journey[data-enhanced="desktop"] .filmBody { padding-block: 20px; }
   .journey[data-enhanced="desktop"] .heading { margin-bottom: 18px; }
@@ -113,9 +96,6 @@
   .journey[data-enhanced="desktop"] .credit h3 { font-size: 28px; }
   .journey[data-enhanced="desktop"] .direction { padding-top: 14px; }
 }
-/* Keep each frame's caption inside its own masking and stacking context. */
-.frame { isolation: isolate; }
-
 /* A local sticky visual, with native scrolling and no ScrollTrigger pin/spacer. */
 @media (max-width: 1000px), (max-height: 699px) {
   .journey[data-enhanced="natural"] .composition { grid-template-columns: 1fr; gap: 20px; }

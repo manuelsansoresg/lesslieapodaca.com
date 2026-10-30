@@ -1,26 +1,13 @@
 import Image from "next/image";
-import { existsSync } from "node:fs";
-import path from "node:path";
+import logo from "../../public/images/lesslie/marca/logolesslie.png";
 export function Brand({ large = false }: { large?: boolean }) {
-  const hasLogo = existsSync(
-    path.join(process.cwd(), "public/images/logo.png"),
-  );
-  return hasLogo ? (
+  return (
     <Image
       className={large ? "brand-image brand-large" : "brand-image"}
-      src="/images/logo.png"
-      width={480}
-      height={240}
+      src={logo}
+      sizes={large ? "180px" : "(max-width: 800px) 64px, 84px"}
       alt="Lesslie Apodaca"
       priority
     />
-  ) : (
-    <span
-      className={
-        large ? "brand-wordmark brand-wordmark-large" : "brand-wordmark"
-      }
-    >
-      Lesslie <span>Apodaca</span>
-    </span>
   );
 }

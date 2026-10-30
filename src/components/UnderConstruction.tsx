@@ -2,6 +2,7 @@ import { CTA } from "./CTA";
 import { copy } from "@/lib/copy";
 import { Brand } from "./Brand";
 import { site } from "@/lib/content";
+import { SocialLinks } from "./SocialLinks";
 export function UnderConstruction() {
   return (
     <div className="construction">
@@ -18,12 +19,11 @@ export function UnderConstruction() {
         <p className="construction-description">{copy.underConstruction3}</p>
         <CTA
           variant="primary" tone="gold" className="button"
-          href={site.social.facebook}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={`mailto:${site.contactEmail}`}
         >
-          Sígueme en Facebook
+          Escríbeme por correo
         </CTA>
+        <SocialLinks tone="ivory" />
       </main>
       <footer className="construction-footer">
         © Lesslie Apodaca. Todos los derechos reservados.

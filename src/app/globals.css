@@ -136,15 +136,17 @@ p + p {
 }
 .brand-image {
   display: block;
-  width: 130px;
+  width: 84px;
   height: auto;
-  max-height: 76px;
+  max-height: none;
   object-fit: contain;
 }
-.brand-large {
-  width: min(330px, 75vw);
-  max-height: 180px;
+.brand-image.brand-large {
+  width: min(180px, 50vw);
+  max-height: none;
 }
+.social-links { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+.construction .social-links { justify-content: center; margin-top: 24px; }
 .skip-link {
   position: fixed;
   z-index: 200;
@@ -890,6 +892,8 @@ p + p {
   align-items: flex-start;
   gap: 16px;
 }
+.footer-contact { min-width: 0; }
+.footer-contact > .text-link { max-width: 100%; overflow-wrap: anywhere; }
 .footer-contact p {
   font-size: 12px;
   margin: 0;
@@ -982,8 +986,8 @@ p + p {
     font-size: 29px;
   }
   .brand-image {
-    width: 115px;
-    max-height: 62px;
+    width: 64px;
+    max-height: none;
   }
   .desktop-nav {
     display: none;
