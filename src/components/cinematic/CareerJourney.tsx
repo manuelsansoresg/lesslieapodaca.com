@@ -11,11 +11,12 @@ import styles from "./journey.module.css";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-// These are existing conceptual compositions, never stills from the credited shows.
+// Original photographs supplied for the trajectory sequence.
+// Keep their repository filenames (including spaces) unchanged.
 const compositions = [
-  "/images/lesslie/trayectoria/tira-cinematografica-foto-real.webp",
-  "/images/lesslie/trayectoria/retrato-en-set-conceptual.webp",
-  "/images/lesslie/trayectoria/estudio-conceptual-vertical.webp",
+  "/images/lesslie/trayectoria/lesslie trayectoria 1.jpeg",
+  "/images/lesslie/trayectoria/lesslie trayectoria 2.jpeg",
+  "/images/lesslie/trayectoria/lesslie trayectoria 3.jpeg",
 ];
 
 export function CareerJourney() {
@@ -128,28 +129,29 @@ export function CareerJourney() {
         <div data-film-body className={`section-wrap ${styles.filmBody}`}>
           <div className={styles.heading}>
             <div><p className="eyebrow">{copy.career1}</p><h2 id="career-title">Historias de las<br /><em>que formo parte.</em></h2></div>
-            <p>{copy.career2}</p>
+            <p>Con más de 100 capítulos unitarios en series transmitidas a nivel nacional e internacional por televisión abierta, y cinco participaciones en plataformas como Netflix, ViX, Amazon y HBO Max.</p>
           </div>
           <div className={styles.composition}>
             <figure className={styles.visual}>
               <div className={styles.window}>
                 {compositions.map((src, index) => (
                   <div key={src} data-frame className={styles.frame} aria-hidden="true">
-                    <Image src={src} alt="" fill sizes="(min-width: 1001px) 44vw, 90vw" />
+                    <Image src={src} alt="" fill className={styles.frameBackdrop} sizes="(min-width: 1001px) 44vw, 90vw" />
+                    <Image src={src} alt="" fill className={styles.framePortrait} sizes="(min-width: 1001px) 44vw, 90vw" />
                     <span className={styles.frameCredit}><small>0{index + 1} / 03 · Trayectoria</small>{site.productions[index].title}</span>
                   </div>
                 ))}
                 <div data-rail-left className={`${styles.rail} ${styles.leftRail}`} aria-hidden="true"><i data-reel /></div>
                 <div data-rail-right className={`${styles.rail} ${styles.rightRail}`} aria-hidden="true"><i data-reel /></div>
               </div>
-              <figcaption>Composiciones visuales conceptuales.<br />No son escenas de las producciones.</figcaption>
+              <figcaption>Fotografías de Lesslie Apodaca.<br />Imágenes ilustrativas de su trayectoria.</figcaption>
             </figure>
             <ol className={styles.credits} aria-label="Producciones de Lesslie Apodaca">
               {site.productions.map((production, index) => (
                 <li key={production.title} data-credit className={styles.credit}>
                   <span className={styles.number} aria-hidden="true">0{index + 1}</span>
                   <article>
-                    <p className="eyebrow">{production.platform}{production.year ? ` · ${production.year}` : ""}</p>
+                    <p className="eyebrow">{production.platform}</p>
                     <h3>{production.title}</h3>
                     {production.character && <p className={styles.character}>Personaje: <strong>{production.character}</strong></p>}
                   </article>

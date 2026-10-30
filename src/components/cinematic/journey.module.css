@@ -3,7 +3,7 @@
 .filmBody { padding-block: 64px 36px; }
 .heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 36px; }
 .heading h2 { font-size: clamp(40px, 4vw, 60px); margin-top: 14px; }
-.heading > p { max-width: 300px; font-size: 12px; color: var(--color-champagne); }
+.heading > p { max-width: 410px; font-size: 12px; line-height: 1.65; color: var(--color-champagne); }
 .heading .eyebrow { color: var(--color-gold); }
 .composition { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 90px); align-items: center; }
 .visual { margin: 0; min-width: 0; }
@@ -11,6 +11,11 @@
 .frame { position: absolute; inset: 0; }
 .frame:not(:first-child) { clip-path: inset(100% 0 0); }
 .frame img { object-fit: cover; object-position: center 38%; }
+.frameBackdrop { object-fit: cover; filter: blur(20px) brightness(.5); transform: scale(1.14); opacity: .85; }
+.framePortrait { object-fit: contain !important; object-position: center center !important; padding-inline: 24px; }
+@media (max-width: 650px) {
+  .framePortrait { padding-inline: 20px; }
+}
 .frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, #34210366, transparent 50%); }
 .rail { position: absolute; top: 0; bottom: 0; width: 22px; z-index: 4; background: var(--color-charcoal); overflow: hidden; }
 .leftRail { left: 0; }.rightRail { right: 0; }
@@ -40,7 +45,7 @@
 @media (max-width: 1000px), (max-height: 699px) {
   .filmBody { padding-block: 65px 35px; }
   .heading { align-items: flex-start; }
-  .heading > p { max-width: 240px; }
+  .heading > p { max-width: 340px; }
   .composition { gap: 30px; }
   .credit { padding-block: 24px; }
   .credit h3 { font-size: 30px; }
@@ -49,7 +54,7 @@
 }
 @media (max-width: 650px) {
   .heading { display: block; }
-  .heading > p { max-width: 330px; margin-top: 22px; }
+  .heading > p { max-width: 100%; margin-top: 22px; }
   .composition { grid-template-columns: 1fr; gap: 20px; }
   .window { height: 320px; }
   .credit { padding-block: 26px; }
