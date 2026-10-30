@@ -1,20 +1,33 @@
 .journey { position: relative; background: var(--color-brown); color: var(--color-ivory); }
 .stage { position: relative; background: var(--color-brown); overflow: clip; isolation: isolate; }
 .filmBody { padding-block: 64px 36px; }
-.heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 36px; }
+.heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: clamp(36px, 6vw, 90px); margin-bottom: 36px; }
 .heading h2 { font-size: clamp(40px, 4vw, 60px); margin-top: 14px; }
-.heading > p { max-width: 410px; font-size: 12px; line-height: 1.65; color: var(--color-champagne); }
+.heading > p { justify-self: start; max-width: 440px; padding-left: 20px; border-left: 1px solid rgb(213 161 79 / .7); font-size: 12px; line-height: 1.7; color: var(--color-champagne); }
 .heading .eyebrow { color: var(--color-gold); }
 .composition { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 90px); align-items: center; }
 .visual { margin: 0; min-width: 0; }
 .window { position: relative; height: clamp(280px, 37vh, 460px); overflow: hidden; background: var(--color-charcoal); }
 .frame { position: absolute; inset: 0; }
+/* Estudio expandido: se pinta únicamente el fondo, sin editar ni recrear a Lesslie. */
+.frame:nth-child(1) { background: linear-gradient(180deg, #b7b8b7 0%, #c3c5c5 54%, #adb7c0 100%); }
+.frame:nth-child(2) { background: radial-gradient(ellipse at 52% 50%, #363535, #252525 78%); }
+.frame:nth-child(3) { background: linear-gradient(180deg, #969ca7, #acb4c0 70%, #b0bac6); }
 .frame:not(:first-child) { clip-path: inset(100% 0 0); }
-.frame img { object-fit: cover; object-position: center 38%; }
-.frameBackdrop { object-fit: cover; filter: blur(20px) brightness(.5); transform: scale(1.14); opacity: .85; }
-.framePortrait { object-fit: contain !important; object-position: center center !important; padding-inline: 24px; }
+.portraitCanvas {
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(66.667%, 280px);
+  max-width: calc(100% - 26px);
+  /* Solo suaviza la unión del fondo existente con su extensión cromática. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+.framePortrait { object-fit: contain !important; object-position: center !important; }
 @media (max-width: 650px) {
-  .framePortrait { padding-inline: 20px; }
+  .portraitCanvas { width: min(66.667%, 240px); }
 }
 .frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, #34210366, transparent 50%); }
 .rail { position: absolute; top: 0; bottom: 0; width: 22px; z-index: 4; background: var(--color-charcoal); overflow: hidden; }
@@ -54,7 +67,7 @@
 }
 @media (max-width: 650px) {
   .heading { display: block; }
-  .heading > p { max-width: 100%; margin-top: 22px; }
+  .heading > p { max-width: 100%; margin-top: 24px; }
   .composition { grid-template-columns: 1fr; gap: 20px; }
   .window { height: 320px; }
   .credit { padding-block: 26px; }
