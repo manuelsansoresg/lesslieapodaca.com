@@ -58,7 +58,7 @@
   transform-origin: left center;
 }
 .portraitExtensionRight img { right: 0; }
-.frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, #34210366, transparent 50%); }
+.frame::after { content: ''; position: absolute; z-index: 2; inset: 0; pointer-events: none; background: linear-gradient(0deg, #34210366, transparent 50%); }
 .rail { position: absolute; top: 0; bottom: 0; width: 22px; z-index: 4; background: var(--color-charcoal); overflow: hidden; }
 .leftRail { left: 0; }.rightRail { right: 0; }
 .rail i { position: absolute; inset: -40% 7px; background: repeating-linear-gradient(180deg, transparent 0 13px, var(--color-champagne) 13px 22px, transparent 22px 35px); opacity: .6; }
@@ -108,7 +108,7 @@
 /* Carry the existing ivory into the original novel surface, without a seam. */
 .journey + :global(.novel-section) { background: linear-gradient(var(--color-ivory), #efe5d6 220px); }
 .journey + :global(.novel-section) > img { mask-image: linear-gradient(transparent, #000 220px); }
-.frameCredit { position: absolute; z-index: 2; bottom: 22px; left: 38px; right: 38px; font-family: var(--font-editorial); font-size: clamp(22px, 2.2vw, 32px); line-height: 1.05; color: var(--color-ivory); text-shadow: 0 1px 16px var(--color-charcoal); }
+.frameCredit { position: absolute; z-index: 3; bottom: 22px; left: 38px; right: 38px; font-family: var(--font-editorial); font-size: clamp(22px, 2.2vw, 32px); line-height: 1.05; color: var(--color-ivory); text-shadow: 0 1px 16px var(--color-charcoal); }
 .frameCredit small { display: block; font-family: var(--font-body); font-size: 8px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; }
 .frame::after { background: linear-gradient(0deg, #211c19e6, #34210322 50%, transparent 70%); }
 @media (min-width: 1001px) and (min-height: 700px) and (max-height: 800px) {
