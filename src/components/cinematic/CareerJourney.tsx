@@ -162,10 +162,32 @@ export function CareerJourney() {
         </div>
         <div data-bridge-surface className={styles.bridgeSurface}>
           <div data-bridge-copy className={`section-wrap ${styles.bridgeCopy}`}>
-            <p className="eyebrow">Actriz · Escritora</p>
-            <h2>De la escena<br /><em>a la página.</em></h2>
-            <span className={styles.inkRule} aria-hidden="true" />
-            <p className={styles.bookTitle}>{site.book.title}</p>
+            <div className={styles.bridgeWords}>
+              <p className="eyebrow">Actriz · Escritora</p>
+              <h2>De la escena<br /><em>a la página.</em></h2>
+              <span className={styles.inkRule} aria-hidden="true" />
+              <p className={styles.bookTitle}>{site.book.title}</p>
+            </div>
+            <div className={styles.bridgePhotos}>
+              <figure className={`${styles.bridgePhoto} ${styles.bridgePhotoOne}`}>
+                <Image
+                  src="/images/lesslie/escena/lesslie1.jpeg"
+                  alt="Lesslie Apodaca en una fotografía de cuerpo entero"
+                  width={720}
+                  height={960}
+                  sizes="(max-width: 650px) 55vw, (max-width: 850px) 310px, 28vw"
+                />
+              </figure>
+              <figure className={`${styles.bridgePhoto} ${styles.bridgePhotoTwo}`}>
+                <Image
+                  src="/images/lesslie/escena/lesslie2.jpeg"
+                  alt="Retrato de Lesslie Apodaca"
+                  width={720}
+                  height={960}
+                  sizes="(max-width: 650px) 52vw, (max-width: 850px) 290px, 27vw"
+                />
+              </figure>
+            </div>
           </div>
         </div>
       </div>

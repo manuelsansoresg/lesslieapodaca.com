@@ -106,3 +106,99 @@
   .bridgeCopy h2 { font-size: clamp(52px, 12vw, 72px); }
   .bridgeSurface { min-height: 0; }
 }
+
+
+/* Editorial photo diptych for "De la escena a la página".
+   Kept inside data-bridge-copy so the existing GSAP transition reveals
+   text and both actual photographs together, never over the film credits. */
+.bridgeCopy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, .94fr);
+  align-items: center;
+  gap: clamp(26px, 3vw, 50px);
+  padding-block: 48px;
+}
+.bridgeWords { min-width: 0; position: relative; z-index: 2; }
+.bridgeWords h2 { max-width: 100%; }
+.bridgePhotos {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-width: 0;
+  min-height: 320px;
+  max-height: 425px;
+  aspect-ratio: 1.22;
+}
+.bridgePhotos::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 15%;
+  top: 0;
+  width: 75%;
+  aspect-ratio: 1;
+  border: 1px solid rgb(193 44 96 / .5);
+  border-radius: 50%;
+}
+.bridgePhotos::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  right: 0;
+  top: 23%;
+  width: 39%;
+  height: 60%;
+  background: linear-gradient(135deg, #eee0ccbb, #e4caa777);
+  transform: rotate(9deg);
+}
+.bridgePhoto {
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+  padding: 7px;
+  background: #fffaf1;
+  border: 1px solid rgb(52 33 3 / .08);
+  box-shadow: 0 18px 38px rgb(52 33 3 / .18);
+}
+.bridgePhoto img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.bridgePhotoOne {
+  z-index: 1;
+  left: 2%;
+  top: 7%;
+  width: 59%;
+  height: 87%;
+  transform: rotate(-2.8deg);
+}
+.bridgePhotoOne img { object-position: center 35%; }
+.bridgePhotoTwo {
+  z-index: 2;
+  right: 1%;
+  bottom: 3%;
+  width: 55%;
+  height: 75%;
+  transform: rotate(4.5deg);
+}
+.bridgePhotoTwo img { object-position: center 28%; }
+@media (max-width: 1000px), (max-height: 699px) {
+  .bridgeCopy { padding-block: 115px 80px; }
+}
+@media (max-width: 850px) {
+  .bridgeCopy { grid-template-columns: minmax(0, 1fr); gap: 25px; }
+  .bridgePhotos {
+    justify-self: center;
+    width: min(100%, 520px);
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: 1.36;
+  }
+}
+@media (max-width: 650px) {
+  .bridgeCopy { gap: 24px; }
+  .bridgePhotos { aspect-ratio: 1.12; }
+  .bridgePhoto { padding: 5px; }
+}
