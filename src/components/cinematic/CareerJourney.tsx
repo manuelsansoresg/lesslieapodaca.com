@@ -137,7 +137,13 @@ export function CareerJourney() {
                 {compositions.map((src, index) => (
                   <div key={src} data-frame className={styles.frame} aria-hidden="true">
                     <div className={styles.portraitCanvas}>
-                      <Image src={src} alt="" fill className={styles.framePortrait} sizes="(min-width: 1001px) 250px, 70vw" />
+                      <span className={`${styles.portraitExtension} ${styles.portraitExtensionLeft}`} aria-hidden="true">
+                        <Image src={src} alt="" width={1066} height={1600} unoptimized />
+                      </span>
+                      <span className={`${styles.portraitExtension} ${styles.portraitExtensionRight}`} aria-hidden="true">
+                        <Image src={src} alt="" width={1066} height={1600} unoptimized />
+                      </span>
+                      <Image src={src} alt="" width={1066} height={1600} className={styles.framePortrait} unoptimized />
                     </div>
                     <span className={styles.frameCredit}><small>0{index + 1} / 03 · Trayectoria</small>{site.productions[index].title}</span>
                   </div>
