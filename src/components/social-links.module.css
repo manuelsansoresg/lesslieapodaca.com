@@ -1,0 +1,22 @@
+.links { gap: 12px; color: var(--color-brown); }
+.links[data-tone="ivory"] { color: var(--color-ivory); }
+.links[data-tone="gold"] { color: var(--color-gold); }
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 4%, transparent);
+  color: inherit;
+  transition: color .2s, background-color .2s, border-color .2s;
+}
+.link svg { display: block; width: 22px; height: 22px; }
+.link:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+@media (hover: hover) {
+  .link:hover { background: var(--color-bougainvillea); border-color: var(--color-bougainvillea); color: var(--color-ivory); }
+}
+@media (prefers-reduced-motion: reduce) { .link { transition: none; } }

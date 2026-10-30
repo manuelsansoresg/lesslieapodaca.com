@@ -893,6 +893,8 @@ p + p {
   gap: 16px;
 }
 .footer-contact { min-width: 0; }
+.contact-email-button { gap: 10px; }
+.contact-email-button svg { flex-shrink: 0; }
 .footer-contact > .text-link { max-width: 100%; overflow-wrap: anywhere; }
 .footer-contact p {
   font-size: 12px;
