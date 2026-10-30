@@ -10,54 +10,11 @@
 .window { position: relative; height: clamp(280px, 37vh, 460px); overflow: hidden; background: var(--color-charcoal); }
 .frame { position: absolute; inset: 0; overflow: hidden; }
 .frame:not(:first-child) { clip-path: inset(100% 0 0); }
-/* Extensión auténtica de los bordes de cada fotografía: se estira solo
-   su última columna de píxeles, sin repetir la figura ni crear bandas de otro color. */
-.portraitCanvas {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 50%;
-  height: 100%;
-  width: auto;
-  aspect-ratio: 1066 / 1600;
-  transform: translateX(-50%);
-  isolation: isolate;
-}
-.framePortrait {
-  display: block;
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-}
-.portraitExtension {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  height: 100%;
-  width: 1px;
-  overflow: hidden;
-  transform: scaleX(1200);
-}
-.portraitExtension img {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: auto;
-  max-width: none;
-  display: block;
-}
-.portraitExtensionLeft {
-  right: 100%;
-  transform-origin: right center;
-}
-.portraitExtensionLeft img { left: 0; }
-.portraitExtensionRight {
-  left: 100%;
-  transform-origin: left center;
-}
-.portraitExtensionRight img { right: 0; }
+/* Cada SVG horizontal conserva íntegro el retrato original al centro.
+   Sus bordes se prolongan mediante una reflexión del propio fondo del estudio:
+   sin franjas artificiales, sin recrear rostro ni ropa, sin uniones de distinto tono. */
+.portraitCanvas { position: absolute; inset: 0; isolation: isolate; }
+.framePortrait { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .frame::after { content: ''; position: absolute; z-index: 2; inset: 0; pointer-events: none; background: linear-gradient(0deg, #34210366, transparent 50%); }
 .rail { position: absolute; top: 0; bottom: 0; width: 22px; z-index: 4; background: var(--color-charcoal); overflow: hidden; }
 .leftRail { left: 0; }.rightRail { right: 0; }

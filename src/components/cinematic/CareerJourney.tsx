@@ -14,9 +14,9 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 // Original photographs supplied for the trajectory sequence.
 // Keep their repository filenames (including spaces) unchanged.
 const compositions = [
-  "/images/lesslie/trayectoria/lesslie trayectoria 1.jpeg",
-  "/images/lesslie/trayectoria/lesslie trayectoria 2.jpeg",
-  "/images/lesslie/trayectoria/lesslie trayectoria 3.jpeg",
+  "/images/lesslie/trayectoria/lesslie-trayectoria-1-horizontal.svg",
+  "/images/lesslie/trayectoria/lesslie-trayectoria-2-horizontal.svg",
+  "/images/lesslie/trayectoria/lesslie-trayectoria-3-horizontal.svg",
 ];
 
 export function CareerJourney() {
@@ -137,13 +137,7 @@ export function CareerJourney() {
                 {compositions.map((src, index) => (
                   <div key={src} data-frame className={styles.frame} aria-hidden="true">
                     <div className={styles.portraitCanvas}>
-                      <span className={`${styles.portraitExtension} ${styles.portraitExtensionLeft}`} aria-hidden="true">
-                        <Image src={src} alt="" width={1066} height={1600} unoptimized />
-                      </span>
-                      <span className={`${styles.portraitExtension} ${styles.portraitExtensionRight}`} aria-hidden="true">
-                        <Image src={src} alt="" width={1066} height={1600} unoptimized />
-                      </span>
-                      <Image src={src} alt="" width={1066} height={1600} className={styles.framePortrait} unoptimized />
+                      <Image src={src} alt="" fill className={styles.framePortrait} sizes="(min-width: 1001px) 44vw, 90vw" unoptimized />
                     </div>
                     <span className={styles.frameCredit}><small>0{index + 1} / 03 · Trayectoria</small>{site.productions[index].title}</span>
                   </div>
